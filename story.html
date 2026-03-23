@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORY - 同齊咖吡 TOGETHER COFFEE PROJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-blue: #4C6A92;
+            --brand-blue-light: rgba(76, 106, 146, 0.15);
+        }
+
+        * {
+            cursor: none !important;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: #ffffff;
+            color: #333333;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .custom-cursor {
+            width: 22px;
+            height: 22px;
+            background: var(--brand-blue-light);
+            border: 1px solid var(--brand-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: var(--brand-blue);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        nav a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--brand-blue);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--brand-blue);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+
+        .page-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--brand-blue-light);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666666;
+        }
+
+        .chapter {
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .chapter.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter-number {
+            font-size: 0.9rem;
+            color: var(--brand-blue);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+        }
+
+        .story-image:hover {
+            transform: scale(1.05);
+        }
+
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555555;
+        }
+
+        .quote-section {
+            background: var(--brand-blue);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin: 100px 0;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .quote-author {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--brand-blue-light);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 50%;
+            padding-left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+            padding-right: 0;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--brand-blue);
+            border: 4px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 4px var(--brand-blue-light);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555555;
+            padding: 0 40px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-content {
+                padding: 0;
+            }
+
+            .page-number {
+                font-size: 3rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .chapter-title {
+                font-size: 1.5rem;
+            }
+
+            .quote-text {
+                font-size: 1.3rem;
+            }
+
+            .story-image {
+                height: 250px;
+            }
+        }
+
+        footer {
+            background: #f8f8f8;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        .social-links {
+            font-size: 1.1rem;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #999999;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <header>
+        <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: var(--brand-blue);">同齊咖吡</a>
+            
+            <nav class="desktop-nav flex gap-8 text-sm font-bold" style="color: #333333;">
+                <a href="index.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">01</span>HOME</a>
+                <a href="menu.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">02</span>MENU</a>
+                <a href="franchise.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">03</span>JOIN US</a>
+                <a href="space-rental.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">04</span>SPACE</a>
+            </nav>
+
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu">
+            <nav class="flex flex-col gap-4 text-lg font-bold" style="color: #333333;">
+                <a href="index.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">01</span>HOME</a>
+                <a href="menu.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">02</span>MENU</a>
+                <a href="franchise.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">03</span>JOIN US</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="page-number">04</div>
+            <h1 class="page-title">STORY</h1>
+            <p class="page-subtitle">我們的故事</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER 01 - 起源</div>
+                <h2 class="chapter-title serif">The Beginning</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div>
+                        <img src="https://api.kuse.ai/api/folder/v1/file/26f94458edfae6e10d56f38fc8dc3e02d5be72ddbd035c59f7c61ef4d3e54e55_2121310.jpg" alt="起源" class="story-image">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--brand-blue);">一顆種子的夢想</h3>
+                        <div class="story-content">
+                            <p class="mb-4">「同齊」這個名字,源於閩南語中「在一起」的意思。創辦人從小在花蓮長大,記憶中最深刻的,是鄰里間那份溫暖的人情味。</p>
+                            <p>2018年的某個午後,他在一間老咖啡館裡,看著人們因為一杯咖啡而聚在一起,分享彼此的故事。那一刻,他決定要創造一個空間,讓咖啡不只是飲料,更是連結人與人之間的橋樑。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="md:order-2">
+                        <img src="https://api.kuse.ai/api/folder/v1/file/e58f2d07e2bc90befad447c78534e6edbf009e55859a5213c88c7232258be792_2121294.jpg" alt="尋找" class="story-image">
+                    </div>
+                    <div class="md:order-1">
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--brand-blue);">尋找最初的味道</h3>
+                        <div class="story-content">
+                            <p class="mb-4">為了找到最好的咖啡豆,走訪了台灣各地的咖啡產區,從阿里山到屏東,從花蓮到台中。他與在地小農建立了深厚的情誼,了解每一顆豆子背後的故事。</p>
+                            <p>「好的咖啡,需要好的土地、好的氣候,更需要用心栽種的農民。」這是從這段旅程中學到最重要的一課。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER 02 - 烘焙哲學</div>
+                <h2 class="chapter-title serif">Our Roasting Philosophy</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://api.kuse.ai/api/folder/v1/file/affef844181cf59f949f79318351e827fbaf4547fd5cf7418e9d5fd7896194fc_2121356.jpg" alt="烘焙" class="story-image">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--brand-blue);">溫度與時間的藝術</h3>
+                        <div class="story-content">
+                            <p class="mb-4">同齊堅持自家烘焙,每一批豆子都經過精心調配。我們相信,烘焙不只是技術,更是一門藝術。</p>
+                            <p>從淺焙到深焙,每一個溫度、每一秒時間的掌控,都會影響咖啡最終的風味。我們的烘焙師每天都在追求那個完美的平衡點,讓每一顆豆子都能展現它最好的一面。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-section serif">
+            <div class="quote-text">
+                「咖啡最美好的時刻,<br>
+                不是喝下的那一瞬間,<br>
+                而是與人分享的每一刻。」
+            </div>
+            <div class="quote-author">— 同齊咖吡創辦人 柏奇</div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER 03 - 成長歷程</div>
+                <h2 class="chapter-title serif">Our Journey</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-content">第一間同齊咖吡在台中北屯區開幕,從一間小小的店面開始,我們的夢想正式啟航。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-content">建立自家烘焙工坊,開始與台灣在地小農合作,推出「產地直送」系列咖啡豆。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-content">推出「咖啡共享計畫」,定期舉辦咖啡品鑑會、手沖教學,讓更多人認識精品咖啡的美好。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content">獲得「台中最佳社區咖啡館」獎項,成為在地居民最愛的聚會場所。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-content">開設第二間分店,持續深耕台中,將「同齊」的溫度傳遞給更多人。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER 04 - 未來願景</div>
+                <h2 class="chapter-title serif">Looking Forward</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://api.kuse.ai/api/folder/v1/file/a3570e1836867df862ab523466bff61352d2531d9764f65756a63a7bf5f856af_2121367.jpg" alt="未來" class="story-image">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--brand-blue);">繼續前行</h3>
+                        <div class="story-content">
+                            <p class="mb-4">同齊的故事還在繼續書寫。我們希望能成為一個平台,讓更多台灣小農的優質咖啡被看見,讓更多人因為咖啡而聚在一起。</p>
+                            <p>未來,我們將持續深化與產地的連結,推廣永續咖啡的理念,並創造更多讓社群交流的機會。因為我們相信,最好的咖啡,永遠是與人分享的那一杯。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-links">FB | IG | LINE</div>
+        <div class="copyright">© 2026 TOGETHER COFFEE PROJECT.</div>
+        <div style="margin-top: 1.5rem;">
+            <a href="https://kuse.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #666; font-size: 0.9rem; text-decoration: none; transition: color 0.3s ease;" class="kuse-branding">
+                <span>made with</span>
+                <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg" style="height: 1.2em; width: auto;"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector(`.custom-cursor`);
+        const links = document.querySelectorAll(`a, button`);
+
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = e.clientX + `px`;
+            cursor.style.top = e.clientY + `px`;
+        });
+
+        links.forEach(link => {
+            link.addEventListener(`mouseenter`, () => {
+                cursor.classList.add(`hover`);
+            });
+            link.addEventListener(`mouseleave`, () => {
+                cursor.classList.remove(`hover`);
+            });
+        });
+
+        const hamburger = document.querySelector(`.hamburger`);
+        const mobileMenu = document.querySelector(`.mobile-menu`);
+
+        hamburger.addEventListener(`click`, () => {
+            hamburger.classList.toggle(`active`);
+            mobileMenu.classList.toggle(`active`);
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: `0px 0px -100px 0px`
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(`visible`);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(`.chapter, .timeline-item`).forEach(el => {
+            observer.observe(el);
+        });
+
+        const kuseBranding = document.querySelector(`.kuse-branding`);
+        if (kuseBranding) {
+            kuseBranding.addEventListener(`mouseenter`, () => {
+                kuseBranding.style.color = `#4C6A92`;
+            });
+            kuseBranding.addEventListener(`mouseleave`, () => {
+                kuseBranding.style.color = `#666`;
+            });
+        }
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>

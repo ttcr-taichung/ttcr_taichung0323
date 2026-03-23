@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜單 - 同齊咖吡 TOGETHER COFFEE PROJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #4C6A92;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --bg-cream: #faf8f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        #custom-cursor {
+            width: 22px;
+            height: 22px;
+            background: rgba(76, 106, 146, 0.15);
+            border: 1px solid var(--brand-blue);
+            border-radius: 50% !important;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        #custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(76, 106, 146, 0.25);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-blue);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: none;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--brand-blue);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .page-header {
+            padding: 150px 5% 80px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(76, 106, 146, 0.05) 0%, rgba(250, 248, 245, 1) 100%);
+        }
+
+        .page-number {
+            font-size: 1rem;
+            color: var(--brand-blue);
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5% 100px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px 80px;
+        }
+
+        .menu-category {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .menu-category:nth-child(1) { animation-delay: 0.1s; }
+        .menu-category:nth-child(2) { animation-delay: 0.2s; }
+        .menu-category:nth-child(3) { animation-delay: 0.3s; }
+        .menu-category:nth-child(4) { animation-delay: 0.4s; }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--brand-blue);
+            letter-spacing: 1px;
+        }
+
+        .menu-items {
+            list-style: none;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            padding-left: 10px;
+            background: rgba(76, 106, 146, 0.03);
+        }
+
+        .item-name {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 400;
+            flex: 1;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--brand-blue);
+            font-size: 1.1rem;
+            margin-left: 1rem;
+            white-space: nowrap;
+        }
+
+        .menu-note {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(76, 106, 146, 0.05);
+            border-left: 4px solid var(--brand-blue);
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--brand-blue);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .social-links {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(250, 248, 245, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .category-title {
+                font-size: 1.3rem;
+            }
+
+            .item-name {
+                font-size: 1rem;
+            }
+
+            .item-price {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 120px 5% 60px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .menu-container {
+                padding: 60px 5% 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"></div>
+
+    <nav>
+        <a href="index.html" class="logo">同齊咖吡</a>
+                <ul class="nav-links">
+            <li><a href="index.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">01</span>HOME</a></li>
+            <li><a href="menu.html" class="active"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">02</span>MENU</a></li>
+            <li><a href="franchise.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">03</span>JOIN US</a></li>
+            <li><a href="space-rental.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">04</span>SPACE</a></li>
+        </ul>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="page-header">
+        <div class="page-number">02</div>
+        <h1 class="page-title">MENU</h1>
+        <p class="page-subtitle">我們的菜單</p>
+    </section>
+
+    <div class="menu-container">
+        <div class="menu-grid">
+            <div class="menu-category">
+                <h2 class="category-title"># 里民咖啡 (中/深焙)</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">美式咖啡 (I/H)</span>
+                        <span class="item-price">100/130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">拿鐵 (I/H)</span>
+                        <span class="item-price">115/135</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">摩卡咖啡</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">風味拿鐵 (焦糖/香草/榛果)</span>
+                        <span class="item-price">145/160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蝶豆花拿鐵</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">西西里氣泡美式</span>
+                        <span class="item-price">135</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title"># 里民茶飲 & 特調</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">溫莎莊園紅茶</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">高山青茶</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">鐵觀音烏龍茶</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">溫莎莊園紅茶奶蓋</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">港式凍檸茶</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">草莓蜜桃乳酸氣泡</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">晨曦果韻 (蘋果/雙柚/青茶)</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">醇濃抹茶歐蕾</span>
+                        <span class="item-price">115</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title"># 四季冰沙 & 私藏甜品</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">草莓冰沙</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">拿鐵冰沙</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">巧克力莓果塔</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">起司芋頭巴斯克</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">原肉肉桂捲</span>
+                        <span class="item-price">160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">法式布丁</span>
+                        <span class="item-price">120</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title"># 里民套餐 & 超值輕食</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">香草戰斧豬排盤</span>
+                        <span class="item-price">369</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">香蒜雞腿排拼盤/辣</span>
+                        <span class="item-price">329</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">煙燻鮭魚拼盤</span>
+                        <span class="item-price">289</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">剝皮辣椒燻雞佛卡夏</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">煙燻鮭魚可頌</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">打拋豬焗烤厚片</span>
+                        <span class="item-price">125</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-note">
+            * 套餐均附 12oz 純茶飲,更換其他飲品折抵 $30,也可+$60換購剝皮辣椒雞湯
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">FB | IG | LINE</div>
+        <div class="copyright">© 2026 TOGETHER COFFEE PROJECT.</div>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById(`custom-cursor`);
+        const hamburger = document.querySelector(`.hamburger`);
+        const navLinks = document.querySelector(`.nav-links`);
+        const menuItems = document.querySelectorAll(`.menu-item`);
+
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = e.clientX + `px`;
+            cursor.style.top = e.clientY + `px`;
+        });
+
+        const hoverElements = document.querySelectorAll(`a, button, .menu-item`);
+        hoverElements.forEach(element => {
+            element.addEventListener(`mouseenter`, () => {
+                cursor.classList.add(`hover`);
+            });
+            element.addEventListener(`mouseleave`, () => {
+                cursor.classList.remove(`hover`);
+            });
+        });
+
+        hamburger.addEventListener(`click`, () => {
+            hamburger.classList.toggle(`active`);
+            navLinks.classList.toggle(`active`);
+        });
+
+        navLinks.querySelectorAll(`a`).forEach(link => {
+            link.addEventListener(`click`, () => {
+                hamburger.classList.remove(`active`);
+                navLinks.classList.remove(`active`);
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: `0px 0px -50px 0px`
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = `1`;
+                    entry.target.style.transform = `translateY(0)`;
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(`.menu-category`).forEach(category => {
+            observer.observe(category);
+        });
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>

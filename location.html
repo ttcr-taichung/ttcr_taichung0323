@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORES - 同齊咖吡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        :root {
+            --brand-blue: #4C6A92;
+            --text-dark: #2C2C2C;
+            --text-light: #666666;
+            --bg-cream: #FAF9F6;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--brand-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--brand-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(76, 106, 146, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(250, 249, 246, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--brand-blue);
+        }
+
+        .nav-link.active {
+            color: var(--brand-blue);
+        }
+
+        .nav-number {
+            font-size: 0.75rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--brand-blue);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background-color: rgba(250, 249, 246, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .page-header {
+            margin-top: 100px;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-number {
+            font-size: 0.9rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .stores-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem 5rem;
+        }
+
+        .region-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--brand-blue);
+        }
+
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .store-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .store-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(76, 106, 146, 0.15);
+        }
+
+        .store-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .store-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .store-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .info-icon {
+            color: var(--brand-blue);
+            font-weight: 600;
+            min-width: 20px;
+        }
+
+        .store-phone {
+            color: var(--brand-blue);
+            font-weight: 600;
+        }
+
+        .map-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--brand-blue);
+            color: var(--brand-blue);
+            background-color: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .map-button:hover {
+            background-color: var(--brand-blue);
+            color: white;
+        }
+
+        .contact-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .social-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--brand-blue);
+        }
+
+        footer {
+            background-color: var(--brand-blue);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-social a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .stores-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .region-title {
+                font-size: 1.5rem;
+            }
+
+            .store-name {
+                font-size: 1.3rem;
+            }
+
+            .contact-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .contact-title {
+                font-size: 1.5rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo serif">同齊咖吡</a>
+                        <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-number">01</span>
+                    <span>HOME</span>
+                </a>
+                <a href="menu.html" class="nav-link">
+                    <span class="nav-number">02</span>
+                    <span>MENU</span>
+                </a>
+                <a href="franchise.html" class="nav-link">
+                    <span class="nav-number">03</span>
+                    <span>JOIN US</span>
+                </a>
+                <a href="space-rental.html" class="nav-link">
+                    <span class="nav-number">04</span>
+                    <span>SPACE</span>
+                </a>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link">
+                <span class="nav-number">01</span>
+                <span>HOME</span>
+            </a>
+            <a href="menu.html" class="nav-link">
+                <span class="nav-number">02</span>
+                <span>MENU</span>
+            </a>
+            <a href="news.html" class="nav-link">
+                <span class="nav-number">03</span>
+                <span>NEWS</span>
+            </a>
+            <a href="franchise.html" class="nav-link">
+                <span class="nav-number">04</span>
+                <span>JOIN US</span>
+            </a>
+            <a href="location.html" class="nav-link active">
+                <span class="nav-number">05</span>
+                <span>STORES</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-number">05</div>
+        <h1 class="page-title">STORES</h1>
+        <p class="page-subtitle">我們的店鋪</p>
+    </header>
+
+    <section class="stores-section">
+        <h2 class="region-title">TAICHUNG</h2>
+        <div class="stores-grid">
+            <div class="store-card">
+                <h3 class="store-name serif">同齊咖吡｜台中北屯旗艦店</h3>
+                <div class="store-info">
+                    <div class="store-info-item">
+                        <span class="info-icon">📍</span>
+                        <span>台中市北屯區熱河路二段226號</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">📞</span>
+                        <span class="store-phone">04-2247-8366</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">🕐</span>
+                        <span>08:00 - 00:00 (週一至週日)</span>
+                    </div>
+                </div>
+                <a href="#" class="map-button">VIEW MAP ↗</a>
+            </div>
+
+            <div class="store-card">
+                <h3 class="store-name serif">同齊咖吡｜台中西區精忠店</h3>
+                <div class="store-info">
+                    <div class="store-info-item">
+                        <span class="info-icon">📍</span>
+                        <span>台中市西區精忠街36號</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">📞</span>
+                        <span class="store-phone">04-2320-0285</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">🕐</span>
+                        <span>08:00 - 00:00 (週一至週日)</span>
+                    </div>
+                </div>
+                <a href="#" class="map-button">VIEW MAP ↗</a>
+            </div>
+
+            <div class="store-card">
+                <h3 class="store-name serif">同齊咖吡｜台中南區忠明南店</h3>
+                <div class="store-info">
+                    <div class="store-info-item">
+                        <span class="info-icon">📍</span>
+                        <span>台中市南區忠明南路576號</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">📞</span>
+                        <span class="store-phone">04-2261-8899</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">🕐</span>
+                        <span>08:00 - 00:00 (週一至週日)</span>
+                    </div>
+                </div>
+                <a href="#" class="map-button">VIEW MAP ↗</a>
+            </div>
+        </div>
+
+        <h2 class="region-title">HUALIEN</h2>
+        <div class="stores-grid">
+            <div class="store-card">
+                <h3 class="store-name serif">同齊咖吡｜花蓮創始店</h3>
+                <div class="store-info">
+                    <div class="store-info-item">
+                        <span class="info-icon">📍</span>
+                        <span>花蓮市建國路23號2樓</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">📞</span>
+                        <span class="store-phone">03-8356-7788</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">🕐</span>
+                        <span>12:00 - 02:00 (週一、二、五至日)</span>
+                    </div>
+                    <div class="store-info-item">
+                        <span class="info-icon">🚫</span>
+                        <span>公休日：週三、週四</span>
+                    </div>
+                </div>
+                <a href="#" class="map-button">VIEW MAP ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2 class="contact-title serif">聯絡我們</h2>
+        <p class="contact-text">歡迎來電預約或詢問相關資訊</p>
+        <div class="social-links">
+            <a href="#">FB</a>
+            <span>|</span>
+            <a href="#">IG</a>
+            <span>|</span>
+            <a href="#">LINE</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-social">
+            <a href="#">FB</a> | <a href="#">IG</a> | <a href="#">LINE</a>
+        </div>
+        <div class="footer-copyright">
+            © 2026 TOGETHER COFFEE PROJECT.
+        </div>
+    </footer>
+
+    <div class="kuse-branding" style="position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666; opacity: 0.7; transition: all 0.3s ease; z-index: 999;">
+        <span>made with</span>
+        <a href="https://kuse.ai" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: inherit; transition: color 0.3s ease;">
+            <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg" style="height: 1.2em; width: auto;"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+        </a>
+    </div>
+
+    <script>
+        const cursor = document.querySelector(`.custom-cursor`);
+        const cursorDot = document.querySelector(`.custom-cursor-dot`);
+
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = e.clientX + `px`;
+            cursor.style.top = e.clientY + `px`;
+            cursorDot.style.left = e.clientX + `px`;
+            cursorDot.style.top = e.clientY + `px`;
+        });
+
+        const hoverElements = document.querySelectorAll(`a, button, .store-card`);
+        hoverElements.forEach(element => {
+            element.addEventListener(`mouseenter`, () => {
+                cursor.classList.add(`hover`);
+            });
+            element.addEventListener(`mouseleave`, () => {
+                cursor.classList.remove(`hover`);
+            });
+        });
+
+        const hamburger = document.getElementById(`hamburger`);
+        const mobileMenu = document.getElementById(`mobileMenu`);
+
+        hamburger.addEventListener(`click`, () => {
+            mobileMenu.classList.toggle(`active`);
+        });
+
+        const kuseBranding = document.querySelector(`.kuse-branding`);
+        kuseBranding.addEventListener(`mouseenter`, () => {
+            kuseBranding.style.opacity = `1`;
+            kuseBranding.style.color = `#4C6A92`;
+        });
+        kuseBranding.addEventListener(`mouseleave`, () => {
+            kuseBranding.style.opacity = `0.7`;
+            kuseBranding.style.color = `#666`;
+        });
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>

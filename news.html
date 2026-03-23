@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息 - 同齊咖吡 TOGETHER COFFEE PROJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-blue: #4C6A92;
+            --brand-blue-dark: #3a5270;
+            --text-dark: #333;
+            --text-gray: #666;
+            --bg-light: #f9f9f9;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--brand-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            opacity: 0;
+        }
+
+        #custom-cursor.active {
+            opacity: 1;
+        }
+
+        #custom-cursor.hover {
+            transform: scale(1.5);
+            background-color: rgba(76, 106, 146, 0.1);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a span {
+            color: var(--brand-blue);
+            font-size: 0.75rem;
+            font-weight: 300;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-blue);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: none;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--brand-blue);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 3rem;
+            text-align: center;
+        }
+
+        .serif-italic {
+            font-family: 'Noto Serif TC', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .serif-bold {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        /* News Section */
+        .news-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 5rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .news-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--brand-blue);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .news-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-desc {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--brand-blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.3s ease, gap 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .read-more:hover {
+            color: var(--brand-blue-dark);
+            gap: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-social {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--white);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                gap: 1.5rem;
+                transition: left 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .section-header {
+                padding: 6rem 1.5rem 2rem;
+            }
+
+            .serif-bold {
+                font-size: 2rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .news-section {
+                padding: 1.5rem 1.5rem 4rem;
+            }
+
+            .news-card {
+                padding: 1.5rem;
+            }
+
+            .news-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .serif-bold {
+                font-size: 1.75rem;
+            }
+
+            .news-card {
+                padding: 1.25rem;
+            }
+
+            .news-title {
+                font-size: 1.1rem;
+            }
+
+            .news-desc {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Kuse Branding */
+        .kuse-branding {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: none;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.85rem;
+        }
+
+        .kuse-branding:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">同齊咖吡</a>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+                        <div class="nav-links" id="navLinks">
+                <a href="index.html"><span>01</span> HOME</a>
+                <a href="menu.html"><span>02</span> MENU</a>
+                <a href="franchise.html"><span>03</span> JOIN US</a>
+                <a href="space-rental.html"><span>04</span> SPACE</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-header">
+        <div class="serif-italic"># WHAT'S NEW</div>
+        <h1 class="serif-bold">最新消息 & 每月活動</h1>
+    </section>
+
+    <section class="news-section">
+        <div class="news-grid">
+            <article class="news-card">
+                <div class="news-date">2026.04</div>
+                <h2 class="news-title">【兒童節企劃】小小咖啡師著色活動</h2>
+                <p class="news-desc">於 4/1 - 4/5 期間,來店領取專屬著色紙並完成作品,即可兌換同齊手工餅乾一份。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">2026.03</div>
+                <h2 class="news-title">春季限定:螺旋花拿鐵新上市</h2>
+                <p class="news-desc">選用中深焙里民配方豆,搭配細緻拉花與秘製糖漿,感受春日的溫潤風味。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">2026.03</div>
+                <h2 class="news-title">【會員專屬】集點卡升級計畫</h2>
+                <p class="news-desc">全新數位集點系統上線,消費滿百即可累積點數,兌換更多專屬優惠與限定商品。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">2026.02</div>
+                <h2 class="news-title">情人節限定:雙人下午茶套餐</h2>
+                <p class="news-desc">精選手工甜點搭配兩杯精品咖啡,與重要的人共享浪漫時光。限量供應至 2/28。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">2026.01</div>
+                <h2 class="news-title">新年新氣象:店面翻新完成</h2>
+                <p class="news-desc">北屯旗艦店全新裝潢完工,增設舒適座位區與閱讀空間,歡迎蒞臨體驗。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">2025.12</div>
+                <h2 class="news-title">年末感謝祭:咖啡豆優惠活動</h2>
+                <p class="news-desc">自家烘焙咖啡豆全系列 85 折優惠,感謝一年來的支持與陪伴。</p>
+                <a href="#" class="read-more">DETAILS ↗</a>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-social">FB | IG | LINE</div>
+        <div class="footer-copyright">© 2026 TOGETHER COFFEE PROJECT.</div>
+        <a href="https://kuse.ai" class="kuse-branding" target="_blank">
+            <span>made with</span>
+            <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+        </a>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById(`custom-cursor`);
+        const hoverElements = document.querySelectorAll(`a, button, .news-card`);
+
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+            cursor.classList.add(`active`);
+        });
+
+        document.addEventListener(`mouseleave`, () => {
+            cursor.classList.remove(`active`);
+        });
+
+        hoverElements.forEach(element => {
+            element.addEventListener(`mouseenter`, () => {
+                cursor.classList.add(`hover`);
+            });
+            element.addEventListener(`mouseleave`, () => {
+                cursor.classList.remove(`hover`);
+            });
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById(`hamburger`);
+        const navLinks = document.getElementById(`navLinks`);
+
+        hamburger.addEventListener(`click`, () => {
+            hamburger.classList.toggle(`active`);
+            navLinks.classList.toggle(`active`);
+        });
+
+        // Close menu when clicking on a link
+        const navItems = document.querySelectorAll(`.nav-links a`);
+        navItems.forEach(item => {
+            item.addEventListener(`click`, () => {
+                hamburger.classList.remove(`active`);
+                navLinks.classList.remove(`active`);
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener(`click`, (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove(`active`);
+                navLinks.classList.remove(`active`);
+            }
+        });
+    </script>
+
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>
