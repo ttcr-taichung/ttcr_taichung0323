@@ -1,1 +1,0 @@
-# ttcr_taichung0323
