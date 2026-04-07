@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
+<html lang="zh-TW"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>同齊咖吡 - Together Coffee Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;family=Noto+Serif+TC:wght@400;700;900&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -107,6 +105,38 @@
 
         .nav-links a:hover {
             color: var(--brand-blue);
+        }
+
+        /* Social Media Links */
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: #4c6a92;
+            transform: translateY(-2px);
+        }
+
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         /* Mobile Menu */
@@ -309,9 +339,22 @@
         }
 
         .news-item {
+            display: block;
             margin-bottom: 30px;
             padding-bottom: 30px;
             border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-item:hover {
+            background: rgba(94, 129, 172, 0.05);
+            padding: 15px;
+            margin-left: -15px;
+            margin-right: -15px;
+            border-radius: 8px;
         }
 
         .news-item:last-of-type {
@@ -351,24 +394,191 @@
             border-bottom-color: var(--brand-blue);
         }
 
-        /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 40px 60px;
+                /* Footer */
+        .footer {
+            background: #223843;
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .social-links {
-            font-size: 16px;
-            margin-bottom: 20px;
+        .footer .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer .social-links a:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .footer .social-links a svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0;
+        }
+
+        /* 熱銷飲品區塊 */
+        .bestseller-section {
+            background: var(--bg-cream);
+            padding: 5rem 5%;
+            overflow: hidden;
+        }
+
+        .bestseller-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bestseller-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            color: var(--brand-blue);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .top-badge {
+            background: #8B0000;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
             letter-spacing: 2px;
         }
 
-        .copyright {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
+        .bestseller-carousel {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
+
+        .carousel-track-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+        }
+
+        .drink-item {
+            min-width: calc(25% - 1.5rem);
+            background: transparent;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .drink-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .drink-image-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 500;
+        }
+
+        .drink-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            background: transparent;
+            transition: transform 0.5s ease;
+        }
+
+        .drink-item:first-child .drink-image {
+            transform: scale(1.15);
+        }
+
+        .drink-name {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .drink-price {
+            font-size: 1.2rem;
+            color: var(--brand-blue);
+            font-weight: bold;
+        }
+
+        .carousel-btn {
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .carousel-btn:hover {
+            background: #4c6a92;
+            transform: scale(1.1);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -420,6 +630,24 @@
                 padding: 30px 24px;
             }
 
+            .bestseller-section {
+                padding: 3rem 5%;
+            }
+
+            .bestseller-title {
+                font-size: 1.8rem;
+            }
+
+            .drink-item {
+                min-width: calc(100% - 1.5rem);
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
             .news-panel {
                 position: static;
                 transform: none;
@@ -438,7 +666,60 @@
             }
         }
     </style>
-</head>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style></head>
 <body>
     <div id="custom-cursor"></div>
 
@@ -460,9 +741,9 @@
     </nav>
 
     <div class="同齊咖吡index">
-        <div class="slide slide-1 active"></div>
+        <div class="slide slide-1"></div>
         <div class="slide slide-2"></div>
-        <div class="slide slide-3"></div>
+        <div class="slide slide-3 active"></div>
 
         <div class="hero-content">
             <p class="serif-italic">Coffee is better when we are together.</p>
@@ -480,35 +761,20 @@
             <h2>NEWS</h2>
             <button class="news-close-btn" id="newsCloseBtn">×</button>
         </div>
-        <div class="news-item">
-            <div class="news-date">2026.03</div>
+        <a href="news.html#news-1" class="news-item">
+            <div class="news-date">2025.03.15</div>
             <div class="news-title">👑 作伙同行·即刻啟程｜尊爵會員限時招募</div>
-        </div>
-        <div class="news-item">
-            <div class="news-date">2026.03</div>
+        </a>
+        <a href="news.html#news-2" class="news-item">
+            <div class="news-date">2025.03.10</div>
             <div class="news-title">🎄 聖誕包場專案｜在同齊咖啡感受溫暖</div>
-        </div>
-        <div class="news-item">
-            <div class="news-date">2026.03</div>
+        </a>
+        <a href="news.html#news-3" class="news-item">
+            <div class="news-date">2025.03.05</div>
             <div class="news-title">🍞 剝皮辣椒燻雞佛卡夏｜獨享時光，也要好好對自己辣一下</div>
-        </div>
+        </a>
         <a href="news.html" class="news-more">MORE</a>
     </div>
-
-    <footer>
-        <div class="social-links">FB | IG | LINE</div>
-        <div class="copyright">© 2026 TOGETHER COFFEE PROJECT.</div>
-        <div class="kuse-branding" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); transition: color 0.3s ease; cursor: pointer;">
-            <span>made with</span>
-            <a href="https://kuse.ai" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: inherit; transition: color 0.3s ease;">
-                <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg" style="height: 1.2em; fill: currentColor;">
-                    <path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/>
-                    <path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/>
-                </svg>
-            </a>
-        </div>
-    </footer>
 
     <script>
         // Custom Cursor
@@ -575,5 +841,112 @@
         });
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
-</body>
-</html>
+
+    <!-- 熱銷飲品區塊 -->
+    <section class="bestseller-section">
+        <div class="bestseller-container">
+            <h2 class="bestseller-title serif">熱銷飲品 <span class="top-badge">TOP</span></h2>
+            <div class="bestseller-carousel">
+                <button class="carousel-btn prev" aria-label="上一張" disabled="" style="opacity: 0.5;">&lt;</button>
+                <div class="carousel-track-container">
+                    <div class="carousel-track" style="transform: translateX(0px);">
+                        <!-- 飲品項目 -->
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/file/public-assets/9597894/access/f6f807e78e7ede437bba373fad7727a70297b4d3e146eeeecfb0ca69eddc7544" alt="風味中深拿鐵" class="drink-image" style="outline: none;">
+                            <h3 class="drink-name">風味中深拿鐵</h3>
+                        </div>
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/folder/v1/file/56370ab23de6b2480a6abed092a24a77af448ebc23a754908120218bf5550884_2967989.png" alt="桂花烏龍" class="drink-image">
+                            <h3 class="drink-name">桂花烏龍</h3>
+                        </div>
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/folder/v1/file/e3dda68ab5c113f487b1505374c50a8609708caffc0ac6fb5c524c8d9e90bb27_2967996.png" alt="冬瓜檸檬氣泡飲" class="drink-image">
+                            <h3 class="drink-name">冬瓜檸檬氣泡飲</h3>
+                        </div>
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/folder/v1/file/8c73b891626cae2c1e40030c2463b2d38eba1cb3025eda8011b4ba9c415be8fe_2967990.png" alt="薑汁汽水" class="drink-image">
+                            <h3 class="drink-name">薑汁汽水</h3>
+                        </div>
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/folder/v1/file/ef94bd3bce5eb7e17c64adc2c7275a20363d059651d4452eff417361fa260f56_2967994.png" alt="暮色橙光" class="drink-image">
+                            <h3 class="drink-name">暮色橙光</h3>
+                        </div>
+                        <div class="drink-item">
+                            <img src="https://api.kuse.ai/api/folder/v1/file/2a9ad5ab32f7f9753fe3f1889921afeab59765ed946ede98f5e4d1a020dd22a2_2967997.png" alt="花田氣泡" class="drink-image">
+                            <h3 class="drink-name">花田氣泡</h3>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next" aria-label="下一張" style="opacity: 1;">&gt;</button>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.instagram.com/ttcr_taichung/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+                </a>
+                <a href="https://www.facebook.com/ttcrtaichung" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+                </a>
+                <a href="https://lin.ee/PbNEE8B" target="_blank" rel="noopener noreferrer" aria-label="LINE">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"></path></svg>
+                </a>
+            </div>
+            <p class="footer-text">©2021 TANGTSE COFFEE ROASTERY</p>
+        </div>
+    </footer>
+
+    <script>
+        // 熱銷飲品輪播功能
+        const track = document.querySelector('.carousel-track');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        const items = document.querySelectorAll('.drink-item');
+        
+        let currentIndex = 0;
+        const itemsToShow = 4; // 一次顯示4個項目
+        const maxIndex = items.length - itemsToShow;
+
+        function updateCarousel() {
+            const itemWidth = items[0].offsetWidth;
+            const gap = 32; // 2rem = 32px
+            const moveAmount = (itemWidth + gap) * currentIndex;
+            track.style.transform = `translateX(-${moveAmount}px)`;
+            
+            // 更新按鈕狀態
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+            prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+            nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        // 響應式調整
+        window.addEventListener('resize', () => {
+            currentIndex = 0;
+            updateCarousel();
+        });
+
+        // 初始化
+        updateCarousel();
+    </script>
+
+
+</body></html>
