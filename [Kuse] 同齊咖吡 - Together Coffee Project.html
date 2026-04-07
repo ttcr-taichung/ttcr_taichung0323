@@ -297,9 +297,7 @@
         }
 
         .news-panel.hidden {
-            opacity: 0;
-            transform: translateY(-50%) translateX(100px);
-            pointer-events: none;
+            display: none;
         }
 
         .news-panel-header {
@@ -336,6 +334,36 @@
 
         .news-close-btn:hover {
             color: #2c2c2c;
+        }
+
+        .news-open-btn {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 56, 67, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            writing-mode: vertical-rl;
+        }
+
+        .news-open-btn:hover {
+            background: #1a2d36;
+            transform: translateY(-50%) translateX(-5px);
+            box-shadow: 0 6px 20px rgba(34, 56, 67, 0.4);
+        }
+
+        .news-open-btn.hidden {
+            display: none;
         }
 
         .news-item {
@@ -489,14 +517,44 @@
         }
 
         .carousel-track-container {
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             width: 100%;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand-blue) rgba(0,0,0,0.1);
+        }
+
+        .carousel-track-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-track-container::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        .carousel-track-container::-webkit-scrollbar-thumb {
+            background: var(--brand-blue);
+            border-radius: 10px;
+        }
+
+        .carousel-track-container::-webkit-scrollbar-thumb:hover {
+            background: #1a2d36;
+        }
+
+        .carousel-track-container:active {
+            cursor: grabbing;
         }
 
         .carousel-track {
             display: flex;
             gap: 2rem;
-            transition: transform 0.5s ease;
+            padding: 1rem 0;
         }
 
         .drink-item {
@@ -829,69 +887,177 @@
         <a href="news.html" class="news-more">MORE</a>
     </div>
 
+    <!-- News Open Button -->
+    <button class="news-open-btn hidden" id="newsOpenBtn">
+        <span>NEWS</span>
+    </button>
+
     <script>
         // Custom Cursor
-        const cursor = document.getElementById(`custom-cursor`);
-        const links = document.querySelectorAll(`a, button, .mobile-menu`);
+        const cursor = document.getElementById('custom-cursor');
+        const links = document.querySelectorAll('a, button, .mobile-menu');
 
-        document.addEventListener(`mousemove`, (e) => {
-            cursor.style.left = e.clientX + `px`;
-            cursor.style.top = e.clientY + `px`;
-            cursor.classList.add(`active`);
+        document.addEventListener('mousemove', function(e) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.classList.add('active');
         });
 
-        document.addEventListener(`mouseleave`, () => {
-            cursor.classList.remove(`active`);
+        document.addEventListener('mouseleave', function() {
+            cursor.classList.remove('active');
         });
 
-        links.forEach(link => {
-            link.addEventListener(`mouseenter`, () => {
-                cursor.classList.add(`hover`);
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function() {
+                cursor.classList.add('hover');
             });
-            link.addEventListener(`mouseleave`, () => {
-                cursor.classList.remove(`hover`);
+            link.addEventListener('mouseleave', function() {
+                cursor.classList.remove('hover');
             });
         });
 
         // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector(`.mobile-menu`);
-        const navLinks = document.querySelector(`.nav-links`);
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
 
-        mobileMenuBtn.addEventListener(`click`, () => {
-            navLinks.classList.toggle(`mobile-active`);
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
         });
 
         // Background Carousel
-        const slides = document.querySelectorAll(`.slide`);
+        const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
 
         function nextSlide() {
-            slides[currentSlide].classList.remove(`active`);
+            slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add(`active`);
+            slides[currentSlide].classList.add('active');
         }
 
         setInterval(nextSlide, 5000);
 
         // Kuse Branding Hover Effect
-        const kuseBranding = document.querySelector(`.kuse-branding`);
-        kuseBranding.addEventListener(`mouseenter`, () => {
-            kuseBranding.style.color = `rgba(255,255,255,0.8)`;
+        const kuseBranding = document.querySelector('.kuse-branding');
+        kuseBranding.addEventListener('mouseenter', function() {
+            kuseBranding.style.color = 'rgba(255,255,255,0.8)';
         });
-        kuseBranding.addEventListener(`mouseleave`, () => {
-            kuseBranding.style.color = `rgba(255,255,255,0.5)`;
+        kuseBranding.addEventListener('mouseleave', function() {
+            kuseBranding.style.color = 'rgba(255,255,255,0.5)';
         });
-        kuseBranding.addEventListener(`click`, () => {
-            window.open(`https://kuse.ai`, `_blank`);
+        kuseBranding.addEventListener('click', function() {
+            window.open('https://kuse.ai', '_blank');
         });
 
         // News Panel Close Button
-        const newsPanel = document.getElementById(`newsPanel`);
-        const newsCloseBtn = document.getElementById(`newsCloseBtn`);
+        console.log('🔍 開始初始化 NEWS 面板...');
         
-        newsCloseBtn.addEventListener(`click`, () => {
-            newsPanel.classList.add(`hidden`);
+        const newsPanel = document.getElementById('newsPanel');
+        const newsCloseBtn = document.getElementById('newsCloseBtn');
+        const newsOpenBtn = document.getElementById('newsOpenBtn');
+        
+        console.log('newsPanel:', newsPanel);
+        console.log('newsCloseBtn:', newsCloseBtn);
+        console.log('newsOpenBtn:', newsOpenBtn);
+        
+        if (!newsPanel) {
+            console.error('❌ 找不到 newsPanel 元素');
+        }
+        if (!newsCloseBtn) {
+            console.error('❌ 找不到 newsCloseBtn 元素');
+        }
+        if (!newsOpenBtn) {
+            console.error('❌ 找不到 newsOpenBtn 元素');
+        }
+        
+        if (newsCloseBtn && newsPanel && newsOpenBtn) {
+            console.log('✅ 所有元素都找到了,綁定事件...');
+            
+            newsCloseBtn.addEventListener('click', function() {
+                console.log('🖱️ 關閉按鈕被點擊!');
+                newsPanel.classList.add('hidden');
+                newsOpenBtn.classList.remove('hidden');
+                console.log('✅ 面板已隱藏');
+            });
+
+            newsOpenBtn.addEventListener('click', function() {
+                console.log('🖱️ 開啟按鈕被點擊!');
+                newsPanel.classList.remove('hidden');
+                newsOpenBtn.classList.add('hidden');
+                console.log('✅ 面板已顯示');
+            });
+            
+            console.log('✅ NEWS 面板功能已完全初始化');
+        } else {
+            console.error('❌ 無法初始化 NEWS 面板功能');
+        }
+
+        // 熱銷飲品輪播功能 - 平滑滾動版本
+        const trackContainer = document.querySelector('.carousel-track-container');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        
+        const scrollAmount = 300; // 每次滾動的距離
+
+        prevBtn.addEventListener('click', () => {
+            trackContainer.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
         });
+
+        nextBtn.addEventListener('click', () => {
+            trackContainer.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // 滑鼠拖曳滾動功能
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        trackContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            trackContainer.style.cursor = 'grabbing';
+            startX = e.pageX - trackContainer.offsetLeft;
+            scrollLeft = trackContainer.scrollLeft;
+        });
+
+        trackContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            trackContainer.style.cursor = 'grab';
+        });
+
+        trackContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            trackContainer.style.cursor = 'grab';
+        });
+
+        trackContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - trackContainer.offsetLeft;
+            const walk = (x - startX) * 2; // 乘以2增加滑動速度
+            trackContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // 更新按鈕狀態
+        function updateButtons() {
+            const scrollLeftPos = trackContainer.scrollLeft;
+            const maxScroll = trackContainer.scrollWidth - trackContainer.clientWidth;
+            
+            prevBtn.disabled = scrollLeftPos <= 0;
+            nextBtn.disabled = scrollLeftPos >= maxScroll;
+            prevBtn.style.opacity = scrollLeftPos <= 0 ? '0.5' : '1';
+            nextBtn.style.opacity = scrollLeftPos >= maxScroll ? '0.5' : '1';
+        }
+
+        trackContainer.addEventListener('scroll', updateButtons);
+        window.addEventListener('resize', updateButtons);
+        
+        // 初始化
+        updateButtons();
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
 
@@ -952,54 +1118,6 @@
             <p class="footer-text">©2021 TANGTSE COFFEE ROASTERY</p>
         </div>
     </footer>
-
-    <script>
-        // 熱銷飲品輪播功能
-        const track = document.querySelector('.carousel-track');
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        const items = document.querySelectorAll('.drink-item');
-        
-        let currentIndex = 0;
-        const itemsToShow = 4; // 一次顯示4個項目
-        const maxIndex = items.length - itemsToShow;
-
-        function updateCarousel() {
-            const itemWidth = items[0].offsetWidth;
-            const gap = 32; // 2rem = 32px
-            const moveAmount = (itemWidth + gap) * currentIndex;
-            track.style.transform = `translateX(-${moveAmount}px)`;
-            
-            // 更新按鈕狀態
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= maxIndex;
-            prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
-            nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-
-        // 響應式調整
-        window.addEventListener('resize', () => {
-            currentIndex = 0;
-            updateCarousel();
-        });
-
-        // 初始化
-        updateCarousel();
-    </script>
 
 
 </body></html>
