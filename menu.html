@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>菜單 - 同齊咖吡 TOGETHER COFFEE PROJECT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-blue: #4C6A92;
+            --brand-blue: #223843;
             --text-dark: #2c2c2c;
             --text-light: #666;
             --bg-cream: #faf8f5;
+            --font-serif: "Noto Serif TC", serif;
+            --font-sans: "Noto Sans TC", sans-serif;
         }
 
         * {
@@ -20,7 +22,7 @@
         }
 
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: var(--font-sans);
             color: var(--text-dark);
             background-color: var(--bg-cream);
             cursor: none;
@@ -65,11 +67,15 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--brand-blue);
+            display: block;
+            height: 90px;
             text-decoration: none;
-            letter-spacing: 2px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -79,6 +85,7 @@
         }
 
         .nav-links a {
+            font-family: var(--font-sans);
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 700;
@@ -127,19 +134,21 @@
         }
 
         .page-number {
-            font-size: 1rem;
-            color: var(--brand-blue);
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
             font-weight: 700;
+            color: var(--brand-blue);
             letter-spacing: 3px;
             margin-bottom: 1rem;
         }
 
         .page-title {
-            font-size: 4rem;
+            font-family: var(--font-serif);
+            font-size: 3rem;
             font-weight: 900;
             color: var(--brand-blue);
-            letter-spacing: 8px;
-            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            margin: 0.5rem 0;
         }
 
         .page-subtitle {
@@ -182,13 +191,14 @@
         .menu-category:nth-child(4) { animation-delay: 0.4s; }
 
         .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 900;
             color: var(--brand-blue);
             margin-bottom: 1.5rem;
             padding-bottom: 0.8rem;
-            border-bottom: 3px solid var(--brand-blue);
-            letter-spacing: 1px;
+            border-bottom: 2px solid var(--brand-blue);
+            letter-spacing: 2px;
         }
 
         .menu-items {
@@ -210,7 +220,7 @@
         }
 
         .item-name {
-            font-family: 'Noto Serif TC', serif;
+            font-family: var(--font-serif);
             font-size: 1.1rem;
             color: var(--text-dark);
             font-weight: 400;
@@ -324,12 +334,14 @@
     <div id="custom-cursor"></div>
 
     <nav>
-        <a href="index.html" class="logo">同齊咖吡</a>
+        <a href="index.html" class="logo"><img src="https://api.kuse.ai/api/folder/v1/file/9d637fe0931f19554fba54df05da1ae9e0c2c89d44b3e656eedba1729d226de2_2536607.png" alt="同齊咖吡"></a>
                 <ul class="nav-links">
-            <li><a href="index.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">01</span>HOME</a></li>
-            <li><a href="menu.html" class="active"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">02</span>MENU</a></li>
-            <li><a href="franchise.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">03</span>JOIN US</a></li>
-            <li><a href="space-rental.html"><span style="color: var(--brand-blue); font-size: 0.75rem; margin-right: 8px;">04</span>SPACE</a></li>
+            <li><a href="menu.html" class="active">MENU</a></li>
+            <li><a href="franchise.html">JOIN US</a></li>
+            <li><a href="space-rental.html">SPACE</a></li>
+            <li><a href="location.html">STORES</a></li>
+            <li><a href="story.html">STORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
         </ul>
         <button class="hamburger">
             <span></span>
@@ -339,144 +351,559 @@
     </nav>
 
     <section class="page-header">
-        <div class="page-number">02</div>
+        <div class="page-number"># 02</div>
         <h1 class="page-title">MENU</h1>
         <p class="page-subtitle">我們的菜單</p>
     </section>
 
     <div class="menu-container">
         <div class="menu-grid">
+            <!-- 里民套餐 -->
             <div class="menu-category">
-                <h2 class="category-title"># 里民咖啡 (中/深焙)</h2>
+                <h2 class="category-title"># 里民套餐</h2>
                 <ul class="menu-items">
                     <li class="menu-item">
-                        <span class="item-name">美式咖啡 (I/H)</span>
-                        <span class="item-price">100/130</span>
+                        <span class="item-name">香蒜雞腿排拼盤</span>
+                        <span class="item-price">339</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">拿鐵 (I/H)</span>
-                        <span class="item-price">115/135</span>
+                        <span class="item-name">煙燻鮭魚拼盤</span>
+                        <span class="item-price">299</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">摩卡咖啡</span>
+                        <span class="item-name">黑胡椒雞胸拼盤</span>
+                        <span class="item-price">279</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">招牌唐揚雞拼盤</span>
+                        <span class="item-price">279</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">紅酒燉牛肉</span>
+                        <span class="item-price">389</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">酥炸唐揚雞咖哩 (辣味/原味)</span>
+                        <span class="item-price">279</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蜜汁咕咾肉飯</span>
+                        <span class="item-price">279</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">松露奶油燉雞飯</span>
+                        <span class="item-price">369</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">香蒜雞腿排飯</span>
+                        <span class="item-price">299</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">泰式打拋豬飯</span>
+                        <span class="item-price">269</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 超值輕食 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 超值輕食</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">剝皮辣椒燻雞佛卡夏</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">剝皮辣椒燻雞可頌</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">剝皮辣椒雞湯</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">雞胸肉輕盈冷卷</span>
+                        <span class="item-price">150</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">煙燻鮭魚佛卡夏/可頌</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">煙燻雞肉佛卡夏/可頌</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">招牌唐揚雞可頌</span>
                         <span class="item-price">120</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">風味拿鐵 (焦糖/香草/榛果)</span>
-                        <span class="item-price">145/160</span>
+                        <span class="item-name">火腿起司可頌</span>
+                        <span class="item-price">100</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">蝶豆花拿鐵</span>
-                        <span class="item-price">130</span>
+                        <span class="item-name">打拋豬焗烤厚片</span>
+                        <span class="item-price">129</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">西西里氣泡美式</span>
-                        <span class="item-price">135</span>
+                        <span class="item-name">奶酥厚片</span>
+                        <span class="item-price">100</span>
                     </li>
                 </ul>
             </div>
 
+            <!-- 全新生活飲食 -->
             <div class="menu-category">
-                <h2 class="category-title"># 里民茶飲 & 特調</h2>
+                <h2 class="category-title"># 全新生活飲食</h2>
                 <ul class="menu-items">
                     <li class="menu-item">
-                        <span class="item-name">溫莎莊園紅茶</span>
-                        <span class="item-price">50</span>
+                        <span class="item-name">季節蔬果沙拉盤 (全素)</span>
+                        <span class="item-price">198</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">高山青茶</span>
-                        <span class="item-price">50</span>
+                        <span class="item-name">鮮蝦蔬食沙拉盤</span>
+                        <span class="item-price">289</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">鐵觀音烏龍茶</span>
-                        <span class="item-price">50</span>
+                        <span class="item-name">雞胸肉蔬食沙拉盤</span>
+                        <span class="item-price">259</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">溫莎莊園紅茶奶蓋</span>
-                        <span class="item-price">100</span>
+                        <span class="item-name">燻鮭魚沙拉盤</span>
+                        <span class="item-price">339</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">港式凍檸茶</span>
-                        <span class="item-price">100</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">草莓蜜桃乳酸氣泡</span>
-                        <span class="item-price">130</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">晨曦果韻 (蘋果/雙柚/青茶)</span>
-                        <span class="item-price">100</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">醇濃抹茶歐蕾</span>
-                        <span class="item-price">115</span>
+                        <span class="item-name">蘑菇奶油千層麵 (蛋奶素)</span>
+                        <span class="item-price">279</span>
                     </li>
                 </ul>
             </div>
 
+            <!-- 普洱茶 -->
             <div class="menu-category">
-                <h2 class="category-title"># 四季冰沙 & 私藏甜品</h2>
+                <h2 class="category-title"># 普洱茶</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">精選普洱熟茶</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">風味普洱 (陳皮/菊花/山楂/枸杞)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">15年古樹紫牙 (15年陳生茶)</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">90年代老茶包</span>
+                        <span class="item-price">250</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 里民咖啡 (中焙) -->
+            <div class="menu-category">
+                <h2 class="category-title"># 里民咖啡 (中焙)</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">美式 I/H (12oz/16oz)</span>
+                        <span class="item-price">110/130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">拿鐵 I/H (12oz/16oz)</span>
+                        <span class="item-price">140/160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">風味拿鐵 I/H (焦糖/香草/榛果)</span>
+                        <span class="item-price">145/170</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 里長咖啡 (中深焙) -->
+            <div class="menu-category">
+                <h2 class="category-title"># 里長咖啡 (中深焙)</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">美式 I/H (12oz/16oz)</span>
+                        <span class="item-price">80/110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">拿鐵 I/H (12oz/16oz)</span>
+                        <span class="item-price">120/140</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">風味拿鐵 I/H (焦糖/香草/榛果)</span>
+                        <span class="item-price">125/150</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">桂花拿鐵 I/H (16oz)</span>
+                        <span class="item-price">140</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">桂花氣泡美式 I (16oz)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">柳橙美式 I (16oz)</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">奶蓋美式 I (16oz)</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蘋果美式 I (16oz)</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">百香果美式 I (16oz)</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">西西里氣泡美式 I (16oz)</span>
+                        <span class="item-price">135</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">話梅美式 I (西區限定)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 里民茶飲 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 里民茶飲</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">精選伯爵紅茶 I/H</span>
+                        <span class="item-price">60</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">高山青茶 I/H</span>
+                        <span class="item-price">60</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">鐵觀音烏龍茶 I/H</span>
+                        <span class="item-price">60</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">柚子紅茶 I/H</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">精選伯爵紅茶奶蓋 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">鐵觀音烏龍茶奶蓋 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">話梅烏龍 I (西區限定)</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">桂花烏龍 I</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">玫瑰紅茶歐蕾 I/H</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">精選伯爵紅茶歐蕾 I/H</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">鐵觀音烏龍茶歐蕾 I/H</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">醇濃抹茶歐蕾 I/H</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">濃郁可可歐蕾 I/H</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">草莓抹茶歐蕾 I</span>
+                        <span class="item-price">120</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">冬瓜歐蕾 I (產品含肉桂)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 里民特調 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 里民特調</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">港式凍檸茶 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">香甜金芒乳酸氣泡 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">柚香柳橙乳酸氣泡 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">草莓蜜桃乳酸氣泡 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">晨曦果韻 I (蘋果、蔓越莓、青茶)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">水蜜桃青 I (北屯限定)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蜂蜜蘋果氣泡飲 I</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">冬瓜檸檬氣泡飲 I</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">薑汁汽水 I (西區限定)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">暮色橙光 I (蜜桃、柳橙、紅茶)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">花田氣泡 I (西瓜、玫瑰、小黃瓜)</span>
+                        <span class="item-price">150</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 四季冰沙 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 四季冰沙</h2>
                 <ul class="menu-items">
                     <li class="menu-item">
                         <span class="item-name">草莓冰沙</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">芒果冰沙</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蜜桃莓冰沙</span>
+                        <span class="item-price">110</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 精釀啤酒 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 精釀啤酒</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">德國保拉納小麥啤酒</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">凡迪特白熊啤酒</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">杜瓦三麥啤酒</span>
+                        <span class="item-price">200</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 養生熱飲 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 養生熱飲 (無咖啡因)</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">花香果茶 (洛神、蘋果、甜菊葉、玫瑰果、黑醋栗)</span>
                         <span class="item-price">100</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">拿鐵冰沙</span>
-                        <span class="item-price">120</span>
+                        <span class="item-name">養生喉聲茶 (澎大海、川貝、羅漢果)</span>
+                        <span class="item-price">110</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">巧克力莓果塔</span>
-                        <span class="item-price">180</span>
+                        <span class="item-name">草本花草茶 (甜菊葉、茉莉花、菊花、決明子、甘草)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">玫瑰健康茶 (玫瑰花、仙楂、決明子、甘草)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">柚子茶 (含咖啡因) 柚子醬、青茶</span>
+                        <span class="item-price">110</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 私藏甜品 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 私藏甜品</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">優格杯 (黑糖、水果麥片、桔片)</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">檸檬奶奶糖霜蛋糕</span>
+                        <span class="item-price">130</span>
                     </li>
                     <li class="menu-item">
                         <span class="item-name">起司芋頭巴斯克</span>
                         <span class="item-price">180</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">原肉肉桂捲</span>
+                        <span class="item-name">提拉米蘇巴斯克</span>
+                        <span class="item-price">180</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">湛藍香草巴斯克</span>
                         <span class="item-price">160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">鐵觀音巴斯克</span>
+                        <span class="item-price">160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">原味肉桂捲 (產品含核桃)</span>
+                        <span class="item-price">160</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">天然手工奶酪 (芒果、草莓+$10)</span>
+                        <span class="item-price">130</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">經典法式千層</span>
+                        <span class="item-price">130</span>
                     </li>
                     <li class="menu-item">
                         <span class="item-name">法式布丁</span>
                         <span class="item-price">120</span>
                     </li>
-                </ul>
-            </div>
-
-            <div class="menu-category">
-                <h2 class="category-title"># 里民套餐 & 超值輕食</h2>
-                <ul class="menu-items">
                     <li class="menu-item">
-                        <span class="item-name">香草戰斧豬排盤</span>
-                        <span class="item-price">369</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">香蒜雞腿排拼盤/辣</span>
-                        <span class="item-price">329</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">煙燻鮭魚拼盤</span>
-                        <span class="item-price">289</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">剝皮辣椒燻雞佛卡夏</span>
-                        <span class="item-price">120</span>
-                    </li>
-                    <li class="menu-item">
-                        <span class="item-name">煙燻鮭魚可頌</span>
+                        <span class="item-name">阿芙佳朵 (西區限定)</span>
                         <span class="item-price">130</span>
                     </li>
                     <li class="menu-item">
-                        <span class="item-name">打拋豬焗烤厚片</span>
-                        <span class="item-price">125</span>
+                        <span class="item-name">巧克力布朗尼</span>
+                        <span class="item-price">120</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 里民點心 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 里民點心</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">鱈魚香絲</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">雙色地瓜球</span>
+                        <span class="item-price">90</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">薯條</span>
+                        <span class="item-price">90</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">香酥雞塊</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">酥炸檸檬雞翅</span>
+                        <span class="item-price">100</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">唐揚炸雞</span>
+                        <span class="item-price">110</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">豪華炸物拼盤 (雞塊、薯條、雙色地瓜球、鱈魚香絲)</span>
+                        <span class="item-price">189</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">探險家兒童餐 (西區限定)</span>
+                        <span class="item-price">168</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 餐食加購區 -->
+            <div class="menu-category">
+                <h2 class="category-title"># 餐食加購區</h2>
+                <ul class="menu-items">
+                    <li class="menu-item">
+                        <span class="item-name">加飯</span>
+                        <span class="item-price">20</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">溏心蛋 (半顆)</span>
+                        <span class="item-price">20</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">起司 (片)</span>
+                        <span class="item-price">25</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">牛奶 (12oz)</span>
+                        <span class="item-price">45</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">加咖啡醬</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">蛋沙拉</span>
+                        <span class="item-price">50</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">原味佛卡夏</span>
+                        <span class="item-price">60</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">原味可頌</span>
+                        <span class="item-price">65</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">黑胡椒雞胸肉</span>
+                        <span class="item-price">85</span>
+                    </li>
+                    <li class="menu-item">
+                        <span class="item-name">黃金香蒜麵包</span>
+                        <span class="item-price">90</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-note">
-            * 套餐均附 12oz 純茶飲,更換其他飲品折抵 $30,也可+$60換購剝皮辣椒雞湯
+            <p>* 套餐以上均附12oz純茶飲,升級其他飲品享$30折抵,也可+$70換購剝皮辣椒雞湯。</p>
+            <p>* 超值輕食升級套餐 +$129 (薯條、唐揚雞、地瓜球、溏心蛋、12oz 純茶飲)</p>
+            <p>* 升級其他飲品享$30折抵,也可+$70換購剝皮辣椒雞湯。</p>
+            <p>* 蔬菜內容依季節性調整</p>
+            <p>* 套餐以上均附12oz純茶飲</p>
+            <p>* 未滿18歲禁止飲酒,開車不得飲酒</p>
         </div>
     </div>
 

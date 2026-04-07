@@ -1,12 +1,13 @@
+<!DOCTYPE html>
 <html lang="zh-TW"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加盟計畫 - 同齊咖吡</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&amp;family=Noto+Serif+TC:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --brand-blue: #4C6A92;
+            --brand-blue: #223843;
             --border-color: #E8E8E8;
             --font-serif: "Noto Serif TC", serif;
             --font-sans: "Noto Sans TC", sans-serif;
@@ -25,8 +26,8 @@
 
         body {
             font-family: var(--font-sans);
-            color: #202020;
-            background: #FEFEFE;
+            color: #2c2c2c;
+            background: #faf8f5;
             overflow-x: hidden;
         }
 
@@ -35,17 +36,16 @@
             height: 22px;
             background: rgba(76, 106, 146, 0.15);
             border: 1px solid var(--brand-blue);
-            border-radius: 50%;
+            border-radius: 50% !important;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: transform 0.1s ease;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
         }
 
         #custom-cursor.hover {
-            width: 40px;
-            height: 40px;
+            transform: translate(-50%, -50%) scale(1.5);
             background: rgba(76, 106, 146, 0.25);
         }
 
@@ -54,38 +54,42 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(254, 254, 254, 0.95);
+            background: rgba(250, 248, 245, 0.95);
             backdrop-filter: blur(10px);
-            padding: 25px 50px;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
         }
 
         .logo {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--brand-blue);
+            display: block;
+            height: 90px;
             text-decoration: none;
-            letter-spacing: 2px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 3rem;
+            list-style: none;
         }
 
         .nav-links a {
             font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: #202020;
+            font-size: 0.95rem;
+            color: #2c2c2c;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 1px;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         .nav-links a span {
@@ -227,24 +231,21 @@
         }
 
         footer {
-            background: #F8F8F8;
-            padding: 40px 50px;
+            background: var(--brand-blue);
+            color: white;
+            padding: 3rem 5%;
             text-align: center;
-            border-top: 1px solid var(--border-color);
         }
 
         .social-links {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: #999;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
         }
 
         .copyright {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            color: #BBBBBB;
+            font-size: 0.9rem;
+            opacity: 0.8;
             letter-spacing: 1px;
         }
 
@@ -494,12 +495,14 @@
     <div id="custom-cursor"></div>
 
     <nav class="navbar">
-        <a href="index.html" class="logo">同齊咖吡</a>
+        <a href="index.html" class="logo"><img src="https://api.kuse.ai/api/folder/v1/file/9d637fe0931f19554fba54df05da1ae9e0c2c89d44b3e656eedba1729d226de2_2536607.png" alt="同齊咖吡"></a>
                 <div class="nav-links">
-            <a href="index.html"><span>01</span> HOME</a>
-            <a href="menu.html"><span>02</span> MENU</a>
-            <a href="franchise.html" class="active"><span>03</span> JOIN US</a>
-            <a href="space-rental.html"><span>04</span> SPACE</a>
+            <a href="menu.html">MENU</a>
+            <a href="franchise.html" class="active">JOIN US</a>
+            <a href="space-rental.html">SPACE</a>
+            <a href="location.html">STORES</a>
+            <a href="story.html">STORY</a>
+            <a href="gallery.html">GALLERY</a>
         </div>
         <button class="hamburger">
             <span></span>

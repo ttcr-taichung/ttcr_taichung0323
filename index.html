@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>同齊咖吡 - Together Coffee Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --brand-blue: #4C6A92;
+            --brand-blue: #223843;
+            --font-serif: "Noto Serif TC", serif;
+            --font-sans: "Noto Sans TC", sans-serif;
         }
 
         * {
@@ -18,7 +20,9 @@
         }
 
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: var(--font-sans);
+            color: #2c2c2c;
+            background-color: #faf8f5;
             overflow-x: hidden;
             cursor: none;
         }
@@ -58,38 +62,38 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(250, 248, 245, 0.95);
             backdrop-filter: blur(10px);
-            padding: 20px 60px;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
         }
 
         .logo {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--brand-blue);
+            display: block;
+            height: 90px;
             text-decoration: none;
-            transition: opacity 0.3s ease;
         }
 
-        .logo:hover {
-            opacity: 0.7;
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 3rem;
+            list-style: none;
         }
 
         .nav-links a {
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #2c2c2c;
             text-decoration: none;
             transition: color 0.3s ease;
             letter-spacing: 1px;
@@ -244,6 +248,109 @@
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
         }
 
+        /* News Panel */
+        .news-panel {
+            position: fixed;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 380px;
+            max-height: 500px;
+            overflow-y: auto;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .news-panel.hidden {
+            opacity: 0;
+            transform: translateY(-50%) translateX(100px);
+            pointer-events: none;
+        }
+
+        .news-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .news-panel h2 {
+            font-family: var(--font-sans);
+            font-size: 2rem;
+            font-weight: 900;
+            color: #2c2c2c;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .news-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .news-close-btn:hover {
+            color: #2c2c2c;
+        }
+
+        .news-item {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+        }
+
+        .news-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+            padding-bottom: 0;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .news-title {
+            font-size: 1rem;
+            color: #2c2c2c;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .news-more {
+            display: inline-block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            text-decoration: none;
+            border-bottom: 2px solid #2c2c2c;
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .news-more:hover {
+            color: var(--brand-blue);
+            border-bottom-color: var(--brand-blue);
+        }
+
         /* Footer */
         footer {
             background: #1a1a1a;
@@ -313,6 +420,15 @@
                 padding: 30px 24px;
             }
 
+            .news-panel {
+                position: static;
+                transform: none;
+                right: auto;
+                width: 100%;
+                margin: 20px;
+                max-height: none;
+            }
+
             body {
                 cursor: auto;
             }
@@ -327,12 +443,14 @@
     <div id="custom-cursor"></div>
 
     <nav class="navbar">
-        <a href="index.html" class="logo">同齊咖吡</a>
+        <a href="index.html" class="logo"><img src="https://api.kuse.ai/api/folder/v1/file/9d637fe0931f19554fba54df05da1ae9e0c2c89d44b3e656eedba1729d226de2_2536607.png" alt="同齊咖吡"></a>
         <div class="nav-links">
-            <a href="index.html"><span>01</span> HOME</a>
-            <a href="menu.html"><span>02</span> MENU</a>
-            <a href="franchise.html"><span>03</span> JOIN US</a>
-            <a href="space-rental.html"><span>04</span> SPACE</a>
+            <a href="menu.html">MENU</a>
+            <a href="franchise.html">JOIN US</a>
+            <a href="space-rental.html">SPACE</a>
+            <a href="location.html">STORES</a>
+            <a href="story.html">STORY</a>
+            <a href="gallery.html">GALLERY</a>
         </div>
         <div class="mobile-menu">
             <span></span>
@@ -354,6 +472,27 @@
                 <a href="space-rental.html" class="btn-secondary">場地預約 SPACE</a>
             </div>
         </div>
+    </div>
+
+    <!-- News Panel -->
+    <div class="news-panel" id="newsPanel">
+        <div class="news-panel-header">
+            <h2>NEWS</h2>
+            <button class="news-close-btn" id="newsCloseBtn">×</button>
+        </div>
+        <div class="news-item">
+            <div class="news-date">2026.03</div>
+            <div class="news-title">👑 作伙同行·即刻啟程｜尊爵會員限時招募</div>
+        </div>
+        <div class="news-item">
+            <div class="news-date">2026.03</div>
+            <div class="news-title">🎄 聖誕包場專案｜在同齊咖啡感受溫暖</div>
+        </div>
+        <div class="news-item">
+            <div class="news-date">2026.03</div>
+            <div class="news-title">🍞 剝皮辣椒燻雞佛卡夏｜獨享時光，也要好好對自己辣一下</div>
+        </div>
+        <a href="news.html" class="news-more">MORE</a>
     </div>
 
     <footer>
@@ -425,6 +564,14 @@
         });
         kuseBranding.addEventListener(`click`, () => {
             window.open(`https://kuse.ai`, `_blank`);
+        });
+
+        // News Panel Close Button
+        const newsPanel = document.getElementById(`newsPanel`);
+        const newsCloseBtn = document.getElementById(`newsCloseBtn`);
+        
+        newsCloseBtn.addEventListener(`click`, () => {
+            newsPanel.classList.add(`hidden`);
         });
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
+<html lang="zh-TW"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STORES - 同齊咖吡</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;family=Noto+Sans+TC:wght@300;400;500;600;700&amp;family=Noto+Serif+TC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -15,51 +13,41 @@
         }
 
         :root {
-            --brand-blue: #4C6A92;
-            --text-dark: #2C2C2C;
-            --text-light: #666666;
-            --bg-cream: #FAF9F6;
+            --brand-blue: #223843;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --bg-cream: #faf8f5;
+            --font-serif: "Noto Serif TC", serif;
+            --font-sans: "Noto Sans TC", sans-serif;
         }
 
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-cream);
             color: var(--text-dark);
             overflow-x: hidden;
         }
 
         .serif {
-            font-family: 'Noto Serif TC', serif;
+            font-family: var(--font-serif);
         }
 
         .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--brand-blue);
-            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            background: rgba(76, 106, 146, 0.15);
+            border: 1px solid var(--brand-blue);
+            border-radius: 50% !important;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.15s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .custom-cursor-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--brand-blue);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            transition: all 0.1s ease;
+            transition: transform 0.1s ease;
             transform: translate(-50%, -50%);
         }
 
         .custom-cursor.hover {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(76, 106, 146, 0.1);
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(76, 106, 146, 0.25);
         }
 
         html {
@@ -71,7 +59,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: rgba(250, 249, 246, 0.95);
+            background-color: rgba(250, 248, 245, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(76, 106, 146, 0.1);
@@ -87,11 +75,15 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--brand-blue);
+            display: block;
+            height: 90px;
             text-decoration: none;
-            letter-spacing: 0.05em;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -103,8 +95,9 @@
         .nav-link {
             text-decoration: none;
             color: var(--text-dark);
-            font-weight: 500;
+            font-weight: 700;
             font-size: 0.95rem;
+            letter-spacing: 1px;
             transition: color 0.3s ease;
             display: flex;
             align-items: center;
@@ -160,7 +153,7 @@
         }
 
         .page-header {
-            margin-top: 100px;
+            margin-top: 140px;
             padding: 4rem 2rem 3rem;
             text-align: center;
             max-width: 1400px;
@@ -169,19 +162,21 @@
         }
 
         .page-number {
-            font-size: 0.9rem;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--brand-blue);
-            font-weight: 600;
-            letter-spacing: 0.2em;
+            letter-spacing: 3px;
             margin-bottom: 1rem;
         }
 
         .page-title {
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 900;
             color: var(--brand-blue);
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            margin: 0.5rem 0;
         }
 
         .page-subtitle {
@@ -197,10 +192,11 @@
         }
 
         .region-title {
-            font-size: 2rem;
-            font-weight: 700;
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 900;
             color: var(--brand-blue);
-            letter-spacing: 0.15em;
+            letter-spacing: 2px;
             margin-bottom: 2.5rem;
             padding-bottom: 1rem;
             border-bottom: 3px solid var(--brand-blue);
@@ -325,33 +321,22 @@
         }
 
         footer {
-            background-color: var(--brand-blue);
+            background: var(--brand-blue);
             color: white;
-            padding: 3rem 2rem;
+            padding: 3rem 5%;
             text-align: center;
         }
 
         .footer-social {
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-        }
-
-        .footer-social a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            opacity: 0.7;
+            letter-spacing: 3px;
         }
 
         .footer-copyright {
             font-size: 0.9rem;
-            opacity: 0.9;
-            letter-spacing: 0.05em;
+            opacity: 0.8;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 768px) {
@@ -398,31 +383,127 @@
             }
         }
     </style>
-</head>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style></head>
 <body>
     <div class="custom-cursor"></div>
     <div class="custom-cursor-dot"></div>
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="logo serif">同齊咖吡</a>
+            <a href="index.html" class="logo"><img src="https://api.kuse.ai/api/folder/v1/file/9d637fe0931f19554fba54df05da1ae9e0c2c89d44b3e656eedba1729d226de2_2536607.png" alt="同齊咖吡"></a>
                         <div class="nav-links">
-                <a href="index.html" class="nav-link">
-                    <span class="nav-number">01</span>
-                    <span>HOME</span>
-                </a>
-                <a href="menu.html" class="nav-link">
-                    <span class="nav-number">02</span>
-                    <span>MENU</span>
-                </a>
-                <a href="franchise.html" class="nav-link">
-                    <span class="nav-number">03</span>
-                    <span>JOIN US</span>
-                </a>
-                <a href="space-rental.html" class="nav-link">
-                    <span class="nav-number">04</span>
-                    <span>SPACE</span>
-                </a>
+                <a href="menu.html" class="nav-link">MENU</a>
+                <a href="franchise.html" class="nav-link">JOIN US</a>
+                <a href="space-rental.html" class="nav-link">SPACE</a>
+                <a href="location.html" class="nav-link active">STORES</a>
+                <a href="story.html" class="nav-link">STORY</a>
+                <a href="gallery.html" class="nav-link">GALLERY</a>
             </div>
             <button class="hamburger" id="hamburger">
                 <span></span>
@@ -431,31 +512,39 @@
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="index.html" class="nav-link">
-                <span class="nav-number">01</span>
-                <span>HOME</span>
-            </a>
             <a href="menu.html" class="nav-link">
-                <span class="nav-number">02</span>
+                <span class="nav-number">01</span>
                 <span>MENU</span>
             </a>
-            <a href="news.html" class="nav-link">
-                <span class="nav-number">03</span>
-                <span>NEWS</span>
-            </a>
             <a href="franchise.html" class="nav-link">
-                <span class="nav-number">04</span>
+                <span class="nav-number">02</span>
                 <span>JOIN US</span>
             </a>
-            <a href="location.html" class="nav-link active">
-                <span class="nav-number">05</span>
+            <a href="space-rental.html" class="nav-link">
+                <span class="nav-number">03</span>
+                <span>SPACE</span>
+            </a>
+            <a href="location.html" class="nav-link">
+                <span class="nav-number">04</span>
                 <span>STORES</span>
+            </a>
+            <a href="story.html" class="nav-link">
+                <span class="nav-number">05</span>
+                <span>STORY</span>
+            </a>
+            <a href="gallery.html" class="nav-link">
+                <span class="nav-number">06</span>
+                <span>GALLERY</span>
+            </a>
+            <a href="news.html" class="nav-link">
+                <span class="nav-number">07</span>
+                <span>NEWS</span>
             </a>
         </div>
     </nav>
 
     <header class="page-header">
-        <div class="page-number">05</div>
+        <div class="page-number"># 04</div>
         <h1 class="page-title">STORES</h1>
         <p class="page-subtitle">我們的店鋪</p>
     </header>
@@ -479,7 +568,7 @@
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="#" class="map-button">VIEW MAP ↗</a>
+                <a href="https://maps.google.com/?q=台中市北屯區熱河路二段226號" target="_blank" class="map-button">VIEW MAP ↗</a>
             </div>
 
             <div class="store-card">
@@ -498,52 +587,49 @@
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="#" class="map-button">VIEW MAP ↗</a>
+                <a href="https://maps.google.com/?q=台中市西區精忠街36號" target="_blank" class="map-button">VIEW MAP ↗</a>
             </div>
 
             <div class="store-card">
                 <h3 class="store-name serif">同齊咖吡｜台中南區忠明南店</h3>
-                <div class="store-info">
+                <div class="store-info" style="">
                     <div class="store-info-item">
                         <span class="info-icon">📍</span>
                         <span>台中市南區忠明南路576號</span>
                     </div>
                     <div class="store-info-item">
                         <span class="info-icon">📞</span>
-                        <span class="store-phone">04-2261-8899</span>
+                        <span class="store-phone" style="">04-2376-6576</span>
                     </div>
                     <div class="store-info-item">
                         <span class="info-icon">🕐</span>
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="#" class="map-button">VIEW MAP ↗</a>
+                <a href="https://maps.google.com/?q=台中市南區忠明南路576號" target="_blank" class="map-button">VIEW MAP ↗</a>
             </div>
         </div>
 
         <h2 class="region-title">HUALIEN</h2>
-        <div class="stores-grid">
+        <div class="stores-grid" style="">
             <div class="store-card">
                 <h3 class="store-name serif">同齊咖吡｜花蓮創始店</h3>
-                <div class="store-info">
-                    <div class="store-info-item">
+                <div class="store-info" style="">
+                    <div class="store-info-item" style="">
                         <span class="info-icon">📍</span>
                         <span>花蓮市建國路23號2樓</span>
                     </div>
                     <div class="store-info-item">
-                        <span class="info-icon">📞</span>
-                        <span class="store-phone">03-8356-7788</span>
+                        <span class="info-icon" style="outline: none;">🕛</span>
+                        <span class="store-phone" style="outline: none;">12:00 - 02:00</span>
                     </div>
-                    <div class="store-info-item">
-                        <span class="info-icon">🕐</span>
-                        <span>12:00 - 02:00 (週一、二、五至日)</span>
-                    </div>
-                    <div class="store-info-item">
+                    
+                    <div class="store-info-item" style="">
                         <span class="info-icon">🚫</span>
                         <span>公休日：週三、週四</span>
                     </div>
                 </div>
-                <a href="#" class="map-button">VIEW MAP ↗</a>
+                <a href="https://maps.google.com/?q=花蓮市建國路23號2樓" target="_blank" class="map-button">VIEW MAP ↗</a>
             </div>
         </div>
     </section>
@@ -552,11 +638,11 @@
         <h2 class="contact-title serif">聯絡我們</h2>
         <p class="contact-text">歡迎來電預約或詢問相關資訊</p>
         <div class="social-links">
-            <a href="#">FB</a>
+            <a href="https://www.facebook.com/" target="_blank">FB</a>
             <span>|</span>
-            <a href="#">IG</a>
+            <a href="https://www.instagram.com/" target="_blank">IG</a>
             <span>|</span>
-            <a href="#">LINE</a>
+            <a href="https://line.me/" target="_blank">LINE</a>
         </div>
     </section>
 
@@ -569,10 +655,10 @@
         </div>
     </footer>
 
-    <div class="kuse-branding" style="position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666; opacity: 0.7; transition: all 0.3s ease; z-index: 999;">
+    <div class="kuse-branding" style="position: fixed; bottom: 20px; right: 20px; align-items: center; gap: 8px; font-size: 12px; color: rgb(102, 102, 102); opacity: 0.7; transition: 0.3s; z-index: 999;">
         <span>made with</span>
         <a href="https://kuse.ai" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: inherit; transition: color 0.3s ease;">
-            <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg" style="height: 1.2em; width: auto;"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+            <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg" style="height: 1.2em; width: auto;"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"></path><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"></path></svg>
         </a>
     </div>
 
@@ -615,5 +701,5 @@
         });
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
-</body>
-</html>
+
+</body></html>
