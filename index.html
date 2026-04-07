@@ -338,6 +338,36 @@
             color: #2c2c2c;
         }
 
+        .news-open-btn {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 56, 67, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            writing-mode: vertical-rl;
+        }
+
+        .news-open-btn:hover {
+            background: #1a2d36;
+            transform: translateY(-50%) translateX(-5px);
+            box-shadow: 0 6px 20px rgba(34, 56, 67, 0.4);
+        }
+
+        .news-open-btn.hidden {
+            display: none;
+        }
+
         .news-item {
             display: block;
             margin-bottom: 30px;
@@ -829,6 +859,11 @@
         <a href="news.html" class="news-more">MORE</a>
     </div>
 
+    <!-- News Open Button -->
+    <button class="news-open-btn hidden" id="newsOpenBtn">
+        <span>NEWS</span>
+    </button>
+
     <script>
         // Custom Cursor
         const cursor = document.getElementById(`custom-cursor`);
@@ -888,9 +923,16 @@
         // News Panel Close Button
         const newsPanel = document.getElementById(`newsPanel`);
         const newsCloseBtn = document.getElementById(`newsCloseBtn`);
+        const newsOpenBtn = document.getElementById(`newsOpenBtn`);
         
         newsCloseBtn.addEventListener(`click`, () => {
             newsPanel.classList.add(`hidden`);
+            newsOpenBtn.classList.remove(`hidden`);
+        });
+
+        newsOpenBtn.addEventListener(`click`, () => {
+            newsPanel.classList.remove(`hidden`);
+            newsOpenBtn.classList.add(`hidden`);
         });
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
