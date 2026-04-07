@@ -894,74 +894,102 @@
 
     <script>
         // Custom Cursor
-        const cursor = document.getElementById(`custom-cursor`);
-        const links = document.querySelectorAll(`a, button, .mobile-menu`);
+        const cursor = document.getElementById('custom-cursor');
+        const links = document.querySelectorAll('a, button, .mobile-menu');
 
-        document.addEventListener(`mousemove`, (e) => {
-            cursor.style.left = e.clientX + `px`;
-            cursor.style.top = e.clientY + `px`;
-            cursor.classList.add(`active`);
+        document.addEventListener('mousemove', function(e) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.classList.add('active');
         });
 
-        document.addEventListener(`mouseleave`, () => {
-            cursor.classList.remove(`active`);
+        document.addEventListener('mouseleave', function() {
+            cursor.classList.remove('active');
         });
 
-        links.forEach(link => {
-            link.addEventListener(`mouseenter`, () => {
-                cursor.classList.add(`hover`);
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function() {
+                cursor.classList.add('hover');
             });
-            link.addEventListener(`mouseleave`, () => {
-                cursor.classList.remove(`hover`);
+            link.addEventListener('mouseleave', function() {
+                cursor.classList.remove('hover');
             });
         });
 
         // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector(`.mobile-menu`);
-        const navLinks = document.querySelector(`.nav-links`);
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
 
-        mobileMenuBtn.addEventListener(`click`, () => {
-            navLinks.classList.toggle(`mobile-active`);
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('mobile-active');
         });
 
         // Background Carousel
-        const slides = document.querySelectorAll(`.slide`);
+        const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
 
         function nextSlide() {
-            slides[currentSlide].classList.remove(`active`);
+            slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add(`active`);
+            slides[currentSlide].classList.add('active');
         }
 
         setInterval(nextSlide, 5000);
 
         // Kuse Branding Hover Effect
-        const kuseBranding = document.querySelector(`.kuse-branding`);
-        kuseBranding.addEventListener(`mouseenter`, () => {
-            kuseBranding.style.color = `rgba(255,255,255,0.8)`;
+        const kuseBranding = document.querySelector('.kuse-branding');
+        kuseBranding.addEventListener('mouseenter', function() {
+            kuseBranding.style.color = 'rgba(255,255,255,0.8)';
         });
-        kuseBranding.addEventListener(`mouseleave`, () => {
-            kuseBranding.style.color = `rgba(255,255,255,0.5)`;
+        kuseBranding.addEventListener('mouseleave', function() {
+            kuseBranding.style.color = 'rgba(255,255,255,0.5)';
         });
-        kuseBranding.addEventListener(`click`, () => {
-            window.open(`https://kuse.ai`, `_blank`);
+        kuseBranding.addEventListener('click', function() {
+            window.open('https://kuse.ai', '_blank');
         });
 
         // News Panel Close Button
-        const newsPanel = document.getElementById(`newsPanel`);
-        const newsCloseBtn = document.getElementById(`newsCloseBtn`);
-        const newsOpenBtn = document.getElementById(`newsOpenBtn`);
+        console.log('🔍 開始初始化 NEWS 面板...');
         
-        newsCloseBtn.addEventListener(`click`, () => {
-            newsPanel.classList.add(`hidden`);
-            newsOpenBtn.classList.remove(`hidden`);
-        });
+        const newsPanel = document.getElementById('newsPanel');
+        const newsCloseBtn = document.getElementById('newsCloseBtn');
+        const newsOpenBtn = document.getElementById('newsOpenBtn');
+        
+        console.log('newsPanel:', newsPanel);
+        console.log('newsCloseBtn:', newsCloseBtn);
+        console.log('newsOpenBtn:', newsOpenBtn);
+        
+        if (!newsPanel) {
+            console.error('❌ 找不到 newsPanel 元素');
+        }
+        if (!newsCloseBtn) {
+            console.error('❌ 找不到 newsCloseBtn 元素');
+        }
+        if (!newsOpenBtn) {
+            console.error('❌ 找不到 newsOpenBtn 元素');
+        }
+        
+        if (newsCloseBtn && newsPanel && newsOpenBtn) {
+            console.log('✅ 所有元素都找到了,綁定事件...');
+            
+            newsCloseBtn.addEventListener('click', function() {
+                console.log('🖱️ 關閉按鈕被點擊!');
+                newsPanel.classList.add('hidden');
+                newsOpenBtn.classList.remove('hidden');
+                console.log('✅ 面板已隱藏');
+            });
 
-        newsOpenBtn.addEventListener(`click`, () => {
-            newsPanel.classList.remove(`hidden`);
-            newsOpenBtn.classList.add(`hidden`);
-        });
+            newsOpenBtn.addEventListener('click', function() {
+                console.log('🖱️ 開啟按鈕被點擊!');
+                newsPanel.classList.remove('hidden');
+                newsOpenBtn.classList.add('hidden');
+                console.log('✅ 面板已顯示');
+            });
+            
+            console.log('✅ NEWS 面板功能已完全初始化');
+        } else {
+            console.error('❌ 無法初始化 NEWS 面板功能');
+        }
 
         // 熱銷飲品輪播功能 - 平滑滾動版本
         const trackContainer = document.querySelector('.carousel-track-container');
