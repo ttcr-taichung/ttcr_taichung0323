@@ -278,6 +278,50 @@
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
         }
 
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .scroll-arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+            transform: rotate(45deg);
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: rotate(45deg) translateY(0);
+            }
+            40% {
+                transform: rotate(45deg) translateY(8px);
+            }
+            60% {
+                transform: rotate(45deg) translateY(4px);
+            }
+        }
+
 
                 /* Footer */
         .footer {
@@ -1324,6 +1368,11 @@
                 <a href="menu.html" class="btn-primary">查看菜單 MENU</a>
                 <a href="space-rental.html" class="btn-secondary">場地預約 SPACE</a>
             </div>
+        </div>
+        
+        <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
         </div>
     </div>
 
