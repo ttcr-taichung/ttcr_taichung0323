@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWS 面板測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .news-panel {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 2px solid #223843;
+            border-radius: 15px;
+            padding: 2rem;
+            width: 350px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        .news-panel.hidden {
+            display: none;
+        }
+        .news-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .news-close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+        .news-close-btn:hover {
+            color: #2c2c2c;
+        }
+        .news-open-btn {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #223843;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 999;
+        }
+        .news-open-btn.hidden {
+            display: none;
+        }
+        .test-info {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>NEWS 面板功能測試</h1>
+        <p>✅ 如果您看到右側的 NEWS 面板,請點擊右上角的 ✕ 按鈕</p>
+        <p>✅ 面板應該會消失,然後出現一個 "NEWS" 按鈕</p>
+        <p>✅ 點擊 "NEWS" 按鈕可以重新開啟面板</p>
+        <p id="status" style="margin-top: 10px; font-weight: bold;"></p>
+    </div>
+
+    <!-- News Panel -->
+    <div class="news-panel" id="newsPanel">
+        <div class="news-panel-header">
+            <h2>NEWS 測試</h2>
+            <button class="news-close-btn" id="newsCloseBtn">×</button>
+        </div>
+        <p>這是測試內容。點擊右上角的 ✕ 關閉此面板。</p>
+    </div>
+
+    <!-- News Open Button -->
+    <button class="news-open-btn hidden" id="newsOpenBtn">
+        <span>NEWS</span>
+    </button>
+
+    <script>
+        // 顯示狀態訊息
+        function showStatus(message) {
+            document.getElementById('status').textContent = message;
+            console.log(message);
+        }
+
+        // News Panel Close Button
+        const newsPanel = document.getElementById('newsPanel');
+        const newsCloseBtn = document.getElementById('newsCloseBtn');
+        const newsOpenBtn = document.getElementById('newsOpenBtn');
+        
+        if (!newsPanel || !newsCloseBtn || !newsOpenBtn) {
+            showStatus('❌ 錯誤: 找不到必要的元素');
+        } else {
+            showStatus('✅ 所有元素已找到,功能已啟用');
+        }
+        
+        newsCloseBtn.addEventListener('click', function() {
+            showStatus('✅ 關閉按鈕被點擊');
+            newsPanel.classList.add('hidden');
+            newsOpenBtn.classList.remove('hidden');
+        });
+
+        newsOpenBtn.addEventListener('click', function() {
+            showStatus('✅ 開啟按鈕被點擊');
+            newsPanel.classList.remove('hidden');
+            newsOpenBtn.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
