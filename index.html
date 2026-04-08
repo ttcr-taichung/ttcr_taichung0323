@@ -297,7 +297,9 @@
         }
 
         .news-panel.hidden {
-            display: none;
+            opacity: 0;
+            transform: translateY(-50%) translateX(100px);
+            pointer-events: none;
         }
 
         .news-panel-header {
@@ -894,170 +896,74 @@
 
     <script>
         // Custom Cursor
-        const cursor = document.getElementById('custom-cursor');
-        const links = document.querySelectorAll('a, button, .mobile-menu');
+        const cursor = document.getElementById(`custom-cursor`);
+        const links = document.querySelectorAll(`a, button, .mobile-menu`);
 
-        document.addEventListener('mousemove', function(e) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursor.classList.add('active');
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = e.clientX + `px`;
+            cursor.style.top = e.clientY + `px`;
+            cursor.classList.add(`active`);
         });
 
-        document.addEventListener('mouseleave', function() {
-            cursor.classList.remove('active');
+        document.addEventListener(`mouseleave`, () => {
+            cursor.classList.remove(`active`);
         });
 
-        links.forEach(function(link) {
-            link.addEventListener('mouseenter', function() {
-                cursor.classList.add('hover');
+        links.forEach(link => {
+            link.addEventListener(`mouseenter`, () => {
+                cursor.classList.add(`hover`);
             });
-            link.addEventListener('mouseleave', function() {
-                cursor.classList.remove('hover');
+            link.addEventListener(`mouseleave`, () => {
+                cursor.classList.remove(`hover`);
             });
         });
 
         // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.querySelector(`.mobile-menu`);
+        const navLinks = document.querySelector(`.nav-links`);
 
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('mobile-active');
+        mobileMenuBtn.addEventListener(`click`, () => {
+            navLinks.classList.toggle(`mobile-active`);
         });
 
         // Background Carousel
-        const slides = document.querySelectorAll('.slide');
+        const slides = document.querySelectorAll(`.slide`);
         let currentSlide = 0;
 
         function nextSlide() {
-            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].classList.remove(`active`);
             currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+            slides[currentSlide].classList.add(`active`);
         }
 
         setInterval(nextSlide, 5000);
 
         // Kuse Branding Hover Effect
-        const kuseBranding = document.querySelector('.kuse-branding');
-        kuseBranding.addEventListener('mouseenter', function() {
-            kuseBranding.style.color = 'rgba(255,255,255,0.8)';
+        const kuseBranding = document.querySelector(`.kuse-branding`);
+        kuseBranding.addEventListener(`mouseenter`, () => {
+            kuseBranding.style.color = `rgba(255,255,255,0.8)`;
         });
-        kuseBranding.addEventListener('mouseleave', function() {
-            kuseBranding.style.color = 'rgba(255,255,255,0.5)';
+        kuseBranding.addEventListener(`mouseleave`, () => {
+            kuseBranding.style.color = `rgba(255,255,255,0.5)`;
         });
-        kuseBranding.addEventListener('click', function() {
-            window.open('https://kuse.ai', '_blank');
+        kuseBranding.addEventListener(`click`, () => {
+            window.open(`https://kuse.ai`, `_blank`);
         });
 
         // News Panel Close Button
-        console.log('🔍 開始初始化 NEWS 面板...');
+        const newsPanel = document.getElementById(`newsPanel`);
+        const newsCloseBtn = document.getElementById(`newsCloseBtn`);
+        const newsOpenBtn = document.getElementById(`newsOpenBtn`);
         
-        const newsPanel = document.getElementById('newsPanel');
-        const newsCloseBtn = document.getElementById('newsCloseBtn');
-        const newsOpenBtn = document.getElementById('newsOpenBtn');
-        
-        console.log('newsPanel:', newsPanel);
-        console.log('newsCloseBtn:', newsCloseBtn);
-        console.log('newsOpenBtn:', newsOpenBtn);
-        
-        if (!newsPanel) {
-            console.error('❌ 找不到 newsPanel 元素');
-        }
-        if (!newsCloseBtn) {
-            console.error('❌ 找不到 newsCloseBtn 元素');
-        }
-        if (!newsOpenBtn) {
-            console.error('❌ 找不到 newsOpenBtn 元素');
-        }
-        
-        if (newsCloseBtn && newsPanel && newsOpenBtn) {
-            console.log('✅ 所有元素都找到了,綁定事件...');
-            
-            newsCloseBtn.addEventListener('click', function() {
-                console.log('🖱️ 關閉按鈕被點擊!');
-                newsPanel.classList.add('hidden');
-                newsOpenBtn.classList.remove('hidden');
-                console.log('✅ 面板已隱藏');
-            });
-
-            newsOpenBtn.addEventListener('click', function() {
-                console.log('🖱️ 開啟按鈕被點擊!');
-                newsPanel.classList.remove('hidden');
-                newsOpenBtn.classList.add('hidden');
-                console.log('✅ 面板已顯示');
-            });
-            
-            console.log('✅ NEWS 面板功能已完全初始化');
-        } else {
-            console.error('❌ 無法初始化 NEWS 面板功能');
-        }
-
-        // 熱銷飲品輪播功能 - 平滑滾動版本
-        const trackContainer = document.querySelector('.carousel-track-container');
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        
-        const scrollAmount = 300; // 每次滾動的距離
-
-        prevBtn.addEventListener('click', () => {
-            trackContainer.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
+        newsCloseBtn.addEventListener(`click`, () => {
+            newsPanel.classList.add(`hidden`);
+            newsOpenBtn.classList.remove(`hidden`);
         });
 
-        nextBtn.addEventListener('click', () => {
-            trackContainer.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
+        newsOpenBtn.addEventListener(`click`, () => {
+            newsPanel.classList.remove(`hidden`);
+            newsOpenBtn.classList.add(`hidden`);
         });
-
-        // 滑鼠拖曳滾動功能
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        trackContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            trackContainer.style.cursor = 'grabbing';
-            startX = e.pageX - trackContainer.offsetLeft;
-            scrollLeft = trackContainer.scrollLeft;
-        });
-
-        trackContainer.addEventListener('mouseleave', () => {
-            isDown = false;
-            trackContainer.style.cursor = 'grab';
-        });
-
-        trackContainer.addEventListener('mouseup', () => {
-            isDown = false;
-            trackContainer.style.cursor = 'grab';
-        });
-
-        trackContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - trackContainer.offsetLeft;
-            const walk = (x - startX) * 2; // 乘以2增加滑動速度
-            trackContainer.scrollLeft = scrollLeft - walk;
-        });
-
-        // 更新按鈕狀態
-        function updateButtons() {
-            const scrollLeftPos = trackContainer.scrollLeft;
-            const maxScroll = trackContainer.scrollWidth - trackContainer.clientWidth;
-            
-            prevBtn.disabled = scrollLeftPos <= 0;
-            nextBtn.disabled = scrollLeftPos >= maxScroll;
-            prevBtn.style.opacity = scrollLeftPos <= 0 ? '0.5' : '1';
-            nextBtn.style.opacity = scrollLeftPos >= maxScroll ? '0.5' : '1';
-        }
-
-        trackContainer.addEventListener('scroll', updateButtons);
-        window.addEventListener('resize', updateButtons);
-        
-        // 初始化
-        updateButtons();
     </script>
     <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
 
@@ -1118,6 +1024,76 @@
             <p class="footer-text">©2021 TANGTSE COFFEE ROASTERY</p>
         </div>
     </footer>
+
+    <script>
+        // 熱銷飲品輪播功能 - 平滑滾動版本
+        const trackContainer = document.querySelector('.carousel-track-container');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        
+        const scrollAmount = 300; // 每次滾動的距離
+
+        prevBtn.addEventListener('click', () => {
+            trackContainer.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            trackContainer.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // 滑鼠拖曳滾動功能
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        trackContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            trackContainer.style.cursor = 'grabbing';
+            startX = e.pageX - trackContainer.offsetLeft;
+            scrollLeft = trackContainer.scrollLeft;
+        });
+
+        trackContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            trackContainer.style.cursor = 'grab';
+        });
+
+        trackContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            trackContainer.style.cursor = 'grab';
+        });
+
+        trackContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - trackContainer.offsetLeft;
+            const walk = (x - startX) * 2; // 乘以2增加滑動速度
+            trackContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // 更新按鈕狀態
+        function updateButtons() {
+            const scrollLeft = trackContainer.scrollLeft;
+            const maxScroll = trackContainer.scrollWidth - trackContainer.clientWidth;
+            
+            prevBtn.disabled = scrollLeft <= 0;
+            nextBtn.disabled = scrollLeft >= maxScroll;
+            prevBtn.style.opacity = scrollLeft <= 0 ? '0.5' : '1';
+            nextBtn.style.opacity = scrollLeft >= maxScroll ? '0.5' : '1';
+        }
+
+        trackContainer.addEventListener('scroll', updateButtons);
+        window.addEventListener('resize', updateButtons);
+        
+        // 初始化
+        updateButtons();
+    </script>
 
 
 </body></html>
