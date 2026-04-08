@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自烘咖啡豆 - 嚴選世界各地優質生豆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-blue: #223843;
+            --font-serif: "Noto Serif TC", serif;
+            --font-sans: "Noto Sans TC", sans-serif;
+            --bg-cream: #faf8f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-cream);
+            color: #333;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--brand-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(1.5);
+            background-color: rgba(34, 56, 67, 0.2);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(250, 248, 245, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--brand-blue);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brand-blue);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--bg-cream);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav-link {
+            font-family: var(--font-sans);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--brand-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            transform: scale(1.1);
+        }
+
+        .hero {
+            height: 70vh;
+            background-image: url('https://api.kuse.ai/api/folder/v1/file/e833a0fd660069e06e2f5b173e0b159fe8c7fb4b863eae92d7ec8d173b4a097e_3014638.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 90px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.3rem;
+            font-weight: 300;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--brand-blue);
+            background-color: white;
+            border: 2px solid var(--brand-blue);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background-color: var(--brand-blue);
+            color: white;
+        }
+
+        .roast-section {
+            margin-bottom: 4rem;
+        }
+
+        .roast-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--brand-blue);
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .coffee-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .coffee-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .coffee-card-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--brand-blue) 0%, #2d4a56 100%);
+            color: white;
+        }
+
+        .coffee-name {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .coffee-name-en {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .roast-badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-top: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .coffee-card-body {
+            padding: 1.5rem;
+        }
+
+        .flavor-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .flavor-label {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+
+        .flavor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .flavor-tag {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.9rem;
+            background-color: #f0f0f0;
+            color: #555;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .price-item {
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .price-value {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+        }
+
+        .drip-coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .drip-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .drip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .drip-title {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+        }
+
+        .drip-price {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .gift-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .gift-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gift-content {
+            padding: 2rem;
+        }
+
+        .gift-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+        }
+
+        .gift-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--brand-blue) 0%, #2d4a56 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .cta-button-primary {
+            background-color: white;
+            color: var(--brand-blue);
+        }
+
+        .cta-button-primary:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        .cta-button-secondary {
+            background-color: transparent;
+            color: white;
+        }
+
+        .cta-button-secondary:hover {
+            background-color: white;
+            color: var(--brand-blue);
+        }
+
+        .footer {
+            background-color: var(--brand-blue);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .kuse-branding {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .kuse-branding:hover {
+            color: var(--brand-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .coffee-grid,
+            .drip-coffee-grid,
+            .gift-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-tabs {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="https://api.kuse.ai/api/folder/v1/file/9d637fe0931f19554fba54df05da1ae9e0c2c89d44b3e656eedba1729d226de2_3016821.png" alt="Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="menu.html" class="nav-link">菜單</a>
+                <a href="coffee-beans.html" class="nav-link active">自烘咖啡豆</a>
+                <a href="franchise.html" class="nav-link">加盟計畫</a>
+                <a href="space-rental.html" class="nav-link">空間租賃</a>
+                <a href="location.html" class="nav-link">店面位置</a>
+                <a href="story.html" class="nav-link">品牌故事</a>
+                <a href="gallery.html" class="nav-link">特色餐食</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <a href="menu.html" class="mobile-nav-link">菜單</a>
+        <a href="coffee-beans.html" class="mobile-nav-link">自烘咖啡豆</a>
+        <a href="franchise.html" class="mobile-nav-link">加盟計畫</a>
+        <a href="space-rental.html" class="mobile-nav-link">空間租賃</a>
+        <a href="location.html" class="mobile-nav-link">店面位置</a>
+        <a href="story.html" class="mobile-nav-link">品牌故事</a>
+        <a href="gallery.html" class="mobile-nav-link">特色餐食</a>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">自烘咖啡豆</h1>
+            <p class="hero-subtitle">嚴選世界各地優質生豆,自家烘焙,呈現最純粹的咖啡風味</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="coffee-beans">手沖咖啡豆</button>
+            <button class="category-tab" data-category="gift-box">禮盒系列</button>
+            <button class="category-tab" data-category="drip-coffee">濾掛咖啡</button>
+        </div>
+
+        <div class="content-section active" id="coffee-beans">
+            <div class="roast-section">
+                <h2 class="roast-title">淺焙系列</h2>
+                <div class="coffee-grid">
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">衣索比亞·古吉薩薩巴【水洗】G1紅櫻桃計畫</h3>
+                            <p class="coffee-name-en">Ethiopia Guji Sasaba Washing Station Washed G1 OCR</p>
+                            <span class="roast-badge">淺焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">檸檬皮</span>
+                                    <span class="flavor-tag">橙子</span>
+                                    <span class="flavor-tag">花香</span>
+                                    <span class="flavor-tag">香料</span>
+                                    <span class="flavor-tag">烏龍茶</span>
+                                    <span class="flavor-tag">香草</span>
+                                    <span class="flavor-tag">蜂蜜</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$170</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$540</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">衣索比亞·耶加雪菲【日曬】伊菲雅 G1</h3>
+                            <p class="coffee-name-en">Ethiopia Gedeo Yirgacheffe Worka Efeya Natural G1</p>
+                            <span class="roast-badge">淺焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">甜莓</span>
+                                    <span class="flavor-tag">柑橘</span>
+                                    <span class="flavor-tag">熱帶水果</span>
+                                    <span class="flavor-tag">酸甜平衡</span>
+                                    <span class="flavor-tag">Body飽滿滑順</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$170</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$540</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">衣索比亞·耶加雪菲【日曬】沃卡香妃 G1</h3>
+                            <p class="coffee-name-en">Ethiopia Coffee Lamp Series Worka Natural G1</p>
+                            <span class="roast-badge">淺焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">熱帶水果</span>
+                                    <span class="flavor-tag">莓果</span>
+                                    <span class="flavor-tag">可可</span>
+                                    <span class="flavor-tag">香瓜</span>
+                                    <span class="flavor-tag">藍莓</span>
+                                    <span class="flavor-tag">百香果</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$170</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$540</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">哥倫比亞·小溪谷莊園 草莓優格酵母共同厭氧【水洗】</h3>
+                            <p class="coffee-name-en">Colombia Huila Quebraditas Strawberry Yogurt</p>
+                            <span class="roast-badge">淺焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">草莓</span>
+                                    <span class="flavor-tag">優格</span>
+                                    <span class="flavor-tag">覆盆子</span>
+                                    <span class="flavor-tag">花香氣息</span>
+                                    <span class="flavor-tag">楓糖蜜</span>
+                                    <span class="flavor-tag">蜂蜜</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$250</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$960</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roast-section">
+                <h2 class="roast-title">中焙系列</h2>
+                <div class="coffee-grid">
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">瓜地馬拉·拉米妮塔花神水洗</h3>
+                            <p class="coffee-name-en">Guatemala La Minita Antiqua La Flor</p>
+                            <span class="roast-badge">中焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">花香</span>
+                                    <span class="flavor-tag">酸值柔和</span>
+                                    <span class="flavor-tag">巧克力尾韻</span>
+                                    <span class="flavor-tag">口感乾淨明亮</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$140</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$420</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roast-section">
+                <h2 class="roast-title">中深焙系列</h2>
+                <div class="coffee-grid">
+                    <div class="coffee-card">
+                        <div class="coffee-card-header">
+                            <h3 class="coffee-name">印尼·蘇門答臘曼特寧手選TOP G1</h3>
+                            <p class="coffee-name-en">Indonesia Sumatra Mandheling Hands Picked TOP G1</p>
+                            <span class="roast-badge">中深焙</span>
+                        </div>
+                        <div class="coffee-card-body">
+                            <div class="flavor-section">
+                                <div class="flavor-label">風味特色</div>
+                                <div class="flavor-tags">
+                                    <span class="flavor-tag">巧克力</span>
+                                    <span class="flavor-tag">雪松</span>
+                                    <span class="flavor-tag">草本</span>
+                                    <span class="flavor-tag">焦糖</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="price-item">
+                                    <div class="price-label">半磅</div>
+                                    <div class="price-value">$140</div>
+                                </div>
+                                <div class="price-item">
+                                    <div class="price-label">一磅</div>
+                                    <div class="price-value">$420</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="drip-coffee">
+            <h2 class="section-title">濾掛咖啡</h2>
+            <p class="section-subtitle">隨時隨地享受手沖咖啡的美好時光</p>
+            <div class="drip-coffee-grid">
+                <div class="drip-card">
+                    <h3 class="drip-title">淺焙系列濾掛</h3>
+                    <p class="drip-price">$45 / 包</p>
+                </div>
+                <div class="drip-card">
+                    <h3 class="drip-title">草莓優格濾掛</h3>
+                    <p class="drip-price">$90 / 包</p>
+                </div>
+                <div class="drip-card">
+                    <h3 class="drip-title">中焙系列濾掛</h3>
+                    <p class="drip-price">$35 / 包</p>
+                </div>
+                <div class="drip-card">
+                    <h3 class="drip-title">中深焙系列濾掛</h3>
+                    <p class="drip-price">$35 / 包</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="gift-box">
+            <h2 class="section-title">禮盒系列</h2>
+            <p class="section-subtitle">精心挑選,送禮自用兩相宜</p>
+            <div class="gift-grid">
+                <div class="gift-card">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/43f7f3d08c6878bc19446fe0186709b9709934be07b2072b684bf3ace2a4690c_3017083.jpg" alt="咖啡豆禮盒" class="gift-image">
+                    <div class="gift-content">
+                        <h3 class="gift-title">咖啡豆禮盒</h3>
+                        <p class="gift-description">精選多款咖啡豆組合,讓您一次品嚐多種風味,適合送禮或自用收藏</p>
+                    </div>
+                </div>
+                <div class="gift-card">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/e58f2d07e2bc90befad447c78534e6edbf009e55859a5213c88c7232258be792_3017084.jpg" alt="濾掛咖啡禮盒" class="gift-image">
+                    <div class="gift-content">
+                        <h3 class="gift-title">濾掛咖啡禮盒</h3>
+                        <p class="gift-description">方便攜帶的濾掛咖啡組合,隨時隨地都能享受手沖咖啡的美好</p>
+                    </div>
+                </div>
+                <div class="gift-card">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/09eab596529bd36b51051bd9729693005edd69c8e7c5dcc6e1537e958a935e98_3017085.jpg" alt="客製化禮盒" class="gift-image">
+                    <div class="gift-content">
+                        <h3 class="gift-title">客製化禮盒服務</h3>
+                        <p class="gift-description">依照您的需求,為您量身打造專屬的咖啡禮盒,傳遞您的心意</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-title">立即品嚐我們的精品咖啡</div>
+        <p class="cta-subtitle">歡迎蒞臨門市選購,或聯繫我們了解更多資訊</p>
+        <div class="cta-buttons">
+            <a href="location.html" class="cta-button cta-button-primary">門市選購</a>
+            <a href="location.html" class="cta-button cta-button-secondary">聯絡我們</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <h3 style="text-align: center; font-size: 1.2rem; font-weight: 500; margin-bottom: 2rem; letter-spacing: 3px;">FOLLOW US</h3>
+            <div class="social-icons" style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2.5rem;">
+                <a href="#" class="social-icon" style="width: 50px; height: 50px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 2h9A5.5 5.5 0 0122 7.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2zm0 2A3.5 3.5 0 004 7.5v9A3.5 3.5 0 007.5 20h9a3.5 3.5 0 003.5-3.5v-9A3.5 3.5 0 0016.5 4h-9zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.25-3.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z" fill="#223843"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" style="width: 50px; height: 50px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 5.395 4.388 9.775 9.75 9.975v-7.058H9.094V12h2.656V9.844c0-2.623 1.562-4.073 3.953-4.073 1.146 0 2.344.204 2.344.204v2.578h-1.32c-1.301 0-1.707.808-1.707 1.636V12h2.906l-.464 2.917h-2.442v7.058C19.612 21.775 24 17.395 24 12c0-5.523-4.477-10-10-10z" fill="#223843"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" style="width: 50px; height: 50px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" fill="#223843"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-bottom" style="text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.9rem; opacity: 0.8;">
+                <p>©2021 TANGTSE COFFEE ROASTERY | <a href="#" style="color: white; text-decoration: underline;">隱私權政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://kuse.ai" target="_blank" class="kuse-branding">
+        <span>made with</span>
+        <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+    </a>
+
+    <script>
+        const cursor = document.querySelector(`.custom-cursor`);
+        const hamburger = document.querySelector(`.hamburger`);
+        const mobileNav = document.querySelector(`.mobile-nav`);
+        const navbar = document.querySelector(`.navbar`);
+        const categoryTabs = document.querySelectorAll(`.category-tab`);
+        const contentSections = document.querySelectorAll(`.content-section`);
+
+        document.addEventListener(`mousemove`, (e) => {
+            cursor.style.left = e.clientX + `px`;
+            cursor.style.top = e.clientY + `px`;
+        });
+
+        document.querySelectorAll(`a, button, .coffee-card, .gift-card, .drip-card`).forEach(el => {
+            el.addEventListener(`mouseenter`, () => cursor.classList.add(`hover`));
+            el.addEventListener(`mouseleave`, () => cursor.classList.remove(`hover`));
+        });
+
+        hamburger.addEventListener(`click`, () => {
+            hamburger.classList.toggle(`active`);
+            mobileNav.classList.toggle(`active`);
+        });
+
+        window.addEventListener(`scroll`, () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add(`scrolled`);
+            } else {
+                navbar.classList.remove(`scrolled`);
+            }
+        });
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener(`click`, () => {
+                const category = tab.dataset.category;
+                
+                categoryTabs.forEach(t => t.classList.remove(`active`));
+                tab.classList.add(`active`);
+                
+                contentSections.forEach(section => {
+                    section.classList.remove(`active`);
+                    if (section.id === category) {
+                        section.classList.add(`active`);
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>

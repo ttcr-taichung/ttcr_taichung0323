@@ -400,24 +400,24 @@
         /* 小鈴鐺觸發按鈕 */
         #tâng-tsê-bell-trigger {
             position: fixed;
-            right: 25px;
+            right: 30px;
             top: 25px;
-            width: 50px; 
-            height: 50px;
-            background: #3b4d5a;
+            width: 60px; 
+            height: 60px;
+            background: rgba(59, 77, 90, 0.9);
             color: white;
             border-radius: 50%;
             display: none;
             justify-content: center; 
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             cursor: pointer;
-            z-index: 2147483647;
+            z-index: 1001;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #tâng-tsê-bell-trigger:hover {
-            background-color: #2c3a44;
+            background-color: rgba(44, 58, 68, 0.95);
             transform: scale(1.1) rotate(15deg);
         }
 
@@ -648,10 +648,153 @@
             box-shadow: 0 6px 20px rgba(34, 56, 67, 0.3);
         }
 
-        .news-section .container {
-            max-width: 1400px;
+        /* Services Section */
+        .services-section {
+            padding: 0;
+            background: #fafaf8;
+        }
+
+        .services-section-header {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: #fafaf8;
+        }
+
+        .services-section-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+        }
+
+        .services-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            height: 600px;
+        }
+
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .service-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 0 20px;
+            height: 100%;
+        }
+
+        .service-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-card-image img {
+            transform: scale(1.1);
+        }
+
+        .service-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem 2rem;
+            z-index: 2;
+            color: white;
+        }
+
+        .service-card-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .service-card-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .service-card-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+            max-width: 90%;
+        }
+
+        .service-card-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-card-more {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                height: auto;
+            }
+            
+            .service-card {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-card {
+                height: 350px;
+            }
+            
+            .services-section-title {
+                font-size: 2.2rem;
+            }
+            
+            .service-card-title {
+                font-size: 2rem;
+            }
         }
         /* 響應式設計 */
         @media (max-width: 768px) {
@@ -1347,7 +1490,7 @@
             <a href="space-rental.html">空間租賃</a>
             <a href="location.html">店面位置</a>
             <a href="story.html">品牌故事</a>
-            <a href="gallery.html">相簿</a>
+            <a href="gallery.html">特色餐食</a>
         </div>
         <div class="mobile-menu">
             <span></span>
@@ -1530,8 +1673,66 @@
         </div>
     </section>
 
+    <!-- 多樣化服務區塊 -->
+    <section class="services-section">
+        <div class="services-section-header">
+            <h2 class="services-section-title">多樣化服務</h2>
+            <p class="services-subtitle">空間租借、特色餐食、自烘咖啡豆、異界合作</p>
+        </div>
+        
+        <div class="services-grid">
+            <a href="space-rental.html" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/25d6ce4cc37471d71a1503988abb44eda2383a0b47a2ef96b932d1d707e2da44_3014635.jpg" alt="空間租借">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-label">SPACE RENTAL</div>
+                    <h3 class="service-card-title">空間租借</h3>
+                    <p class="service-card-desc">提供舒適多功能空間，適合會議、講座、私人聚會等各式活動</p>
+                    <div class="service-card-more">了解更多 →</div>
+                </div>
+            </a>
+
+            <a href="cuisine.html" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/f29b397e932ffc9e57ad3501a3c6682c574b6cc80e3383cc5acb799bee43b3f0_3014636.jpg" alt="特色餐食">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-label">SPECIAL CUISINE</div>
+                    <h3 class="service-card-title">特色餐食</h3>
+                    <p class="service-card-desc">精心研發的創意料理，結合在地食材，帶來獨特的味覺體驗</p>
+                    <div class="service-card-more">了解更多 →</div>
+                </div>
+            </a>
+
+            <a href="coffee-beans.html" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/e833a0fd660069e06e2f5b173e0b159fe8c7fb4b863eae92d7ec8d173b4a097e_3014638.jpg" alt="自烘咖啡豆">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-label">ROASTED BEANS</div>
+                    <h3 class="service-card-title">自烘咖啡豆</h3>
+                    <p class="service-card-desc">嚴選世界各地優質生豆，自家烘焙，呈現最純粹的咖啡風味</p>
+                    <div class="service-card-more">了解更多 →</div>
+                </div>
+            </a>
+
+            <a href="collaboration.html" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://api.kuse.ai/api/folder/v1/file/5fc7dd7bc167aea32ceced59a686daa06f1a7d4a5bb14d62f6f29e25f6f3e970_3014637.jpg" alt="異界合作">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-card-label">COLLABORATION</div>
+                    <h3 class="service-card-title">異界合作</h3>
+                    <p class="service-card-desc">跨界聯名合作，與各領域品牌攜手，創造更多可能性</p>
+                    <div class="service-card-more">了解更多 →</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
     <!-- 小鈴鐺觸發按鈕 -->
-    <div id="tâng-tsê-bell-trigger" onclick="toggleTângTsêNews(true)">
+    <div id="tâng-tsê-bell-trigger">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -1679,6 +1880,73 @@
                 if (modal) modal.classList.add('news-is-hidden');
                 if (bell) bell.style.display = 'flex';
             }
+        }
+
+        // Make bell draggable
+        const bell = document.getElementById('tâng-tsê-bell-trigger');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        bell.addEventListener('mousedown', dragStart);
+        bell.addEventListener('touchstart', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+
+            if (e.target === bell || bell.contains(e.target)) {
+                isDragging = true;
+            }
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                setTranslate(currentX, currentY, bell);
+            }
+        }
+
+        function dragEnd(e) {
+            if (isDragging) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+                
+                // If it was just a click (no significant drag), open the modal
+                if (Math.abs(xOffset) < 5 && Math.abs(yOffset) < 5) {
+                    toggleTângTsêNews(true);
+                }
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate(${xPos}px, ${yPos}px)`;
         }
     </script>
 
