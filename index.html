@@ -1693,7 +1693,7 @@
                 </div>
             </a>
 
-            <a href="cuisine.html" class="service-card">
+            <a href="gallery.html" class="service-card">
                 <div class="service-card-image">
                     <img src="https://api.kuse.ai/api/folder/v1/file/f29b397e932ffc9e57ad3501a3c6682c574b6cc80e3383cc5acb799bee43b3f0_3014636.jpg" alt="特色餐食">
                 </div>
@@ -1717,7 +1717,7 @@
                 </div>
             </a>
 
-            <a href="collaboration.html" class="service-card">
+            <a href="franchise.html" class="service-card">
                 <div class="service-card-image">
                     <img src="https://api.kuse.ai/api/folder/v1/file/5fc7dd7bc167aea32ceced59a686daa06f1a7d4a5bb14d62f6f29e25f6f3e970_3014637.jpg" alt="異界合作">
                 </div>
@@ -1748,7 +1748,8 @@
                 <div class="welcome-close-btn" onclick="closeWelcomeModal()">×</div>
             </div>
             <div class="welcome-content">
-                <img src="https://api.kuse.ai/api/folder/v1/file/ac62b23ee7c3d97a36163263aa9ffefb2666a172530b22a26a8a12aa8bfd56c7_3008939.jpg" alt="同齊咖吡儲值優惠">
+                <img src="./welcome-promo.jpg" 
+                     alt="同齊咖吡儲值優惠">
                 <div class="welcome-text">
                     <p>品味時光,聚在一起。即刻預約,體驗專屬於您的極致風味。</p>
                 </div>
@@ -1948,6 +1949,24 @@
         function setTranslate(xPos, yPos, el) {
             el.style.transform = `translate(${xPos}px, ${yPos}px)`;
         }
+
+        // 全局圖片錯誤處理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加 crossorigin 屬性
+                if (!img.hasAttribute('crossorigin')) {
+                    img.setAttribute('crossorigin', 'anonymous');
+                }
+                
+                // 錯誤處理
+                img.addEventListener('error', function() {
+                    console.warn('圖片載入失敗:', this.src);
+                    // 可以設置一個備用圖片
+                    // this.src = 'path/to/fallback-image.jpg';
+                });
+            });
+        });
     </script>
 
 
