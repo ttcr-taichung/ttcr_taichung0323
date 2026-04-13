@@ -407,7 +407,7 @@
             background: rgba(59, 77, 90, 0.9);
             color: white;
             border-radius: 50%;
-            display: none;
+            display: flex;
             justify-content: center; 
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.15);
@@ -1935,71 +1935,84 @@
             }
         }
 
-        // Make bell draggable
+        // Make bell draggable and clickable
         const bell = document.getElementById('tâng-tsê-bell-trigger');
-        let isDragging = false;
-        let currentX;
-        let currentY;
-        let initialX;
-        let initialY;
         let xOffset = 0;
         let yOffset = 0;
 
-        bell.addEventListener('mousedown', dragStart);
-        bell.addEventListener('touchstart', dragStart);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('mouseup', dragEnd);
-        document.addEventListener('touchend', dragEnd);
-
-        function dragStart(e) {
-            if (e.type === 'touchstart') {
-                initialX = e.touches[0].clientX - xOffset;
-                initialY = e.touches[0].clientY - yOffset;
-            } else {
-                initialX = e.clientX - xOffset;
-                initialY = e.clientY - yOffset;
-            }
-
-            if (e.target === bell || bell.contains(e.target)) {
-                isDragging = true;
-            }
-        }
-
-        function drag(e) {
-            if (isDragging) {
-                e.preventDefault();
+        bell.addEventListener('mousedown', handleMouseDown);
+        bell.addEventListener('touchstart', handleTouchStart);
+        
+        function handleMouseDown(e) {
+            let hasMoved = false;
+            const startMouseX = e.clientX;
+            const startMouseY = e.clientY;
+            const startOffsetX = xOffset;
+            const startOffsetY = yOffset;
+            
+            function onMouseMove(e) {
+                const deltaX = e.clientX - startMouseX;
+                const deltaY = e.clientY - startMouseY;
                 
-                if (e.type === 'touchmove') {
-                    currentX = e.touches[0].clientX - initialX;
-                    currentY = e.touches[0].clientY - initialY;
-                } else {
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
+                // 如果移動超過 5px,標記為拖曳
+                if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                    hasMoved = true;
                 }
-
-                xOffset = currentX;
-                yOffset = currentY;
-
-                setTranslate(currentX, currentY, bell);
-            }
-        }
-
-        function dragEnd(e) {
-            if (isDragging) {
-                initialX = currentX;
-                initialY = currentY;
-                isDragging = false;
                 
-                // If it was just a click (no significant drag), open the modal
-                if (Math.abs(xOffset) < 5 && Math.abs(yOffset) < 5) {
+                xOffset = startOffsetX + deltaX;
+                yOffset = startOffsetY + deltaY;
+                bell.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            }
+            
+            function onMouseUp(e) {
+                if (!hasMoved) {
+                    // 如果沒有拖曳,視為點擊
                     toggleTângTsêNews(true);
                 }
+                
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
             }
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
         }
-
-        function setTranslate(xPos, yPos, el) {
-            el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+        
+        function handleTouchStart(e) {
+            let hasMoved = false;
+            const touch = e.touches[0];
+            const startTouchX = touch.clientX;
+            const startTouchY = touch.clientY;
+            const startOffsetX = xOffset;
+            const startOffsetY = yOffset;
+            
+            function onTouchMove(e) {
+                const touch = e.touches[0];
+                const deltaX = touch.clientX - startTouchX;
+                const deltaY = touch.clientY - startTouchY;
+                
+                // 如果移動超過 5px,標記為拖曳
+                if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                    hasMoved = true;
+                }
+                
+                xOffset = startOffsetX + deltaX;
+                yOffset = startOffsetY + deltaY;
+                bell.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            }
+            
+            function onTouchEnd(e) {
+                if (!hasMoved) {
+                    // 如果沒有拖曳,視為點擊
+                    toggleTângTsêNews(true);
+                }
+                
+                document.removeEventListener('touchmove', onTouchMove);
+                document.removeEventListener('touchend', onTouchEnd);
+            }
+            
+            document.addEventListener('touchmove', onTouchMove);
+            document.addEventListener('touchend', onTouchEnd);
         }
 
         // 全局圖片錯誤處理
