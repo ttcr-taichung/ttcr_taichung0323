@@ -163,6 +163,9 @@
 
         .left-column {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .left-column h2 {
@@ -289,6 +292,45 @@
             height: 16px;
         }
 
+        .franchise-info-banner {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .franchise-info-banner:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .franchise-info-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .franchise-detail-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .franchise-detail-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .franchise-detail-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 20px 25px;
@@ -355,6 +397,26 @@
 
             .form-section-title {
                 font-size: 0.9rem;
+            }
+
+            .left-column {
+                gap: 20px;
+            }
+
+            .franchise-info-banner {
+                border-radius: 8px;
+            }
+
+            .franchise-info-banner:hover {
+                transform: none;
+            }
+
+            .franchise-detail-image img {
+                border-radius: 6px;
+            }
+
+            .franchise-detail-image img:hover {
+                transform: none;
             }
 
             footer {
@@ -633,8 +695,10 @@
             
             <div class="content-wrapper" style="">
                 <div class="left-column">
-                    <h2>與我們一起<br>傳遞文字與咖啡的溫度</h2>
-                    <p style="outline: none; width: 519.336px;">同齊咖吡正在尋找志同道合的夥伴。我們提供專業的烘焙技術支援與品牌美學指引，與您共創在地社群空間。</p>
+                    <!-- 加盟資訊圖片 -->
+                    <div class="franchise-info-banner">
+                        <img src="franchise-info.jpg" alt="同齊咖吡加盟資訊 - 與我們共同實現創業路">
+                    </div>
                 </div>
 
                 <div class="right-column">
