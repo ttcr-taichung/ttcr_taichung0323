@@ -230,6 +230,65 @@
             color: var(--brand-blue);
         }
 
+        .form-section-title {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--brand-blue);
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            padding: 15px;
+            background: #FEFEFE;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group label {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: #2c2c2c;
+        }
+
+        .radio-label,
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .radio-label input,
+        .checkbox-label input {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .franchise-form input[type="radio"],
+        .franchise-form input[type="checkbox"] {
+            padding: 0;
+            width: 16px;
+            height: 16px;
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 20px 25px;
@@ -282,6 +341,20 @@
 
             .menu-cat-title {
                 margin-bottom: 40px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-section-title {
+                font-size: 0.9rem;
             }
 
             footer {
@@ -565,11 +638,76 @@
                 </div>
 
                 <div class="right-column">
-                    <form class="franchise-form" style="">
-                        <input type="text" placeholder="聯絡人姓名" required="" style="">
-                        <input type="tel" placeholder="聯絡電話" required="">
-                        <textarea rows="5" placeholder="創業想法與區域" required="" style=""></textarea>
-                        <button type="submit" class="submit-btn" style="outline: none;">聯繫我們 ↗</button>
+                    <form class="franchise-form" id="franchiseForm" style="">
+                        <!-- 一、基本資料 -->
+                        <div class="form-section-title">一、基本資料</div>
+                        <input type="text" name="name" placeholder="姓名" required="" style="">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>性別：</label>
+                                <label class="radio-label"><input type="radio" name="gender" value="男" required> 男</label>
+                                <label class="radio-label"><input type="radio" name="gender" value="女" required> 女</label>
+                            </div>
+                            <input type="number" name="age" placeholder="年齡" required="" style="flex: 1;">
+                        </div>
+                        
+                        <input type="tel" name="phone" placeholder="聯絡電話" required="">
+                        <input type="text" name="lineId" placeholder="LINE ID">
+                        <input type="email" name="email" placeholder="電子郵件" required="">
+                        <input type="text" name="address" placeholder="通訊地址">
+                        
+                        <div class="form-group">
+                            <label style="margin-bottom: 8px; display: block;">現職與經歷：</label>
+                            <label class="checkbox-label"><input type="checkbox" name="employment" value="仍在職"> 仍在職</label>
+                            <label class="checkbox-label"><input type="checkbox" name="employment" value="待業中"> 待業中</label>
+                            <input type="text" name="company" placeholder="現(原)服務公司" style="margin-top: 10px;">
+                        </div>
+                        <textarea name="experience" rows="2" placeholder="請簡述您的職涯背景,這有助於我們規劃適合您的經營策略" style=""></textarea>
+
+                        <!-- 二、經營規劃 -->
+                        <div class="form-section-title">二、經營規劃</div>
+                        <input type="text" name="location" placeholder="預計開店地點(縣市/區域)" required="">
+                        
+                        <div class="form-group">
+                            <label style="margin-bottom: 8px; display: block;">預計投入資金預算：</label>
+                            <label class="checkbox-label"><input type="checkbox" name="budget" value="200萬以下"> 200萬以下</label>
+                            <label class="checkbox-label"><input type="checkbox" name="budget" value="200-400萬"> 200-400萬</label>
+                            <label class="checkbox-label"><input type="checkbox" name="budget" value="400-600萬"> 400-600萬</label>
+                            <label class="checkbox-label"><input type="checkbox" name="budget" value="600萬以上"> 600萬以上</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="margin-bottom: 8px; display: block;">偏好的經營模式：</label>
+                            <label class="checkbox-label"><input type="checkbox" name="businessModel" value="全職投入"> 全職投入</label>
+                            <label class="checkbox-label"><input type="checkbox" name="businessModel" value="委託管理(純投資)"> 委託管理(純投資)</label>
+                            <label class="checkbox-label"><input type="checkbox" name="businessModel" value="合夥經營"> 合夥經營</label>
+                        </div>
+                        
+                        <textarea name="businessIdea" rows="3" placeholder="您的經營理想：例如:對咖啡品質的堅持、咖啡夢想、社區共好的精神,或是對空間設計的期待" required="" style=""></textarea>
+
+                        <!-- 三、展望與需求 -->
+                        <div class="form-section-title">三、展望與需求</div>
+                        <div class="form-group">
+                            <label style="margin-bottom: 8px; display: block;">預估正式營運時間：</label>
+                            <label class="checkbox-label"><input type="radio" name="timeline" value="3個月內" required> 3個月內</label>
+                            <label class="checkbox-label"><input type="radio" name="timeline" value="半年內" required> 半年內</label>
+                            <label class="checkbox-label"><input type="radio" name="timeline" value="一年內" required> 一年內</label>
+                            <label class="checkbox-label"><input type="radio" name="timeline" value="籌備中" required> 籌備中</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="margin-bottom: 8px; display: block;">希望總公司提供資源(可複選)：</label>
+                            <label class="checkbox-label"><input type="checkbox" name="support" value="專業技術培訓"> 專業技術培訓</label>
+                            <label class="checkbox-label"><input type="checkbox" name="support" value="店面選址評估"> 店面選址評估</label>
+                            <label class="checkbox-label"><input type="checkbox" name="support" value="空間設計工程"> 空間設計工程</label>
+                            <label class="checkbox-label"><input type="checkbox" name="support" value="行銷策略支援"> 行銷策略支援</label>
+                            <label class="checkbox-label"><input type="checkbox" name="support" value="原物料穩定供應"> 原物料穩定供應</label>
+                        </div>
+                        
+                        <textarea name="vision" rows="3" placeholder="對品牌展望或發展方向之意見" style=""></textarea>
+
+                        <button type="submit" class="submit-btn" style="outline: none;">送出申請 ↗</button>
                     </form>
                 </div>
             </div>
@@ -602,10 +740,63 @@
             navLinks.classList.toggle(`active`);
         });
 
-        form.addEventListener(`submit`, (e) => {
+        form.addEventListener(`submit`, async (e) => {
             e.preventDefault();
-            alert(`感謝您的申請！我們會盡快與您聯繫。`);
-            form.reset();
+            
+            // 收集表單資料
+            const formData = new FormData(form);
+            const data = {
+                timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
+                name: formData.get('name'),
+                gender: formData.get('gender'),
+                age: formData.get('age'),
+                phone: formData.get('phone'),
+                lineId: formData.get('lineId'),
+                email: formData.get('email'),
+                address: formData.get('address'),
+                employment: formData.getAll('employment').join(', '),
+                company: formData.get('company'),
+                experience: formData.get('experience'),
+                location: formData.get('location'),
+                budget: formData.getAll('budget').join(', '),
+                businessModel: formData.getAll('businessModel').join(', '),
+                businessIdea: formData.get('businessIdea'),
+                timeline: formData.get('timeline'),
+                support: formData.getAll('support').join(', '),
+                vision: formData.get('vision')
+            };
+
+            // 顯示載入中
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '送出中...';
+            submitBtn.disabled = true;
+
+            try {
+                // 發送到 Google Apps Script Web App
+                // 請將下方 URL 替換為您的 Google Apps Script 部署 URL
+                const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMjZMM28QdceE1vFLHVGEq7-14nd4LiYL0-f7FrMrZkf1QT2wu7-YVT6Q9tr-7zFJQ/exec';
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // 由於使用 no-cors 模式，我們無法讀取回應，但資料已送出
+                alert('感謝您的申請！我們已收到您的資料，會盡快與您聯繫。');
+                form.reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('送出時發生錯誤，請稍後再試或直接聯繫我們。');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
         document.addEventListener(`click`, (e) => {
