@@ -1,4 +1,4 @@
-<html lang="zh-TW"><head>
+<!DOCTYPE html><html lang="zh-TW"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STORES - 同齊咖吡</title>
@@ -212,9 +212,21 @@
         .store-card {
             background-color: white;
             border-radius: 12px;
-            padding: 2.5rem;
+            padding: 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .store-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .store-content {
+            padding: 2.5rem;
         }
 
         .store-card:hover {
@@ -1175,6 +1187,8 @@
         <h2 class="region-title">TAICHUNG</h2>
         <div class="stores-grid">
             <div class="store-card">
+                <img src="./images/beitun.jpg" alt="台中北屯旗艦店" class="store-image">
+                <div class="store-content">
                 <h3 class="store-name serif">同齊咖吡｜台中北屯旗艦店</h3>
                 <div class="store-info">
                     <div class="store-info-item">
@@ -1190,10 +1204,13 @@
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="https://maps.app.goo.gl/YjR6qfA9VfD6574v7" target="_blank" class="map-button">VIEW MAP ↗</a>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=同齊咖吡台中北屯旗艦店" target="_blank" class="map-button">VIEW MAP ↗</a>
+                </div>
             </div>
 
             <div class="store-card">
+                <img src="./images/jingzhong.jpg" alt="台中西區精忠店" class="store-image">
+                <div class="store-content">
                 <h3 class="store-name serif">同齊咖吡｜台中西區精忠店</h3>
                 <div class="store-info">
                     <div class="store-info-item">
@@ -1209,10 +1226,13 @@
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="https://maps.app.goo.gl/M4t64uTzQyQx4V1X9" target="_blank" class="map-button">VIEW MAP ↗</a>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=同齊咖吡台中西區精忠店" target="_blank" class="map-button">VIEW MAP ↗</a>
+                </div>
             </div>
 
             <div class="store-card">
+                <img src="./images/zhongming.jpg" alt="台中南區忠明南店" class="store-image">
+                <div class="store-content">
                 <h3 class="store-name serif">同齊咖吡｜台中南區忠明南店</h3>
                 <div class="store-info" style="">
                     <div class="store-info-item">
@@ -1228,13 +1248,16 @@
                         <span>08:00 - 00:00 (週一至週日)</span>
                     </div>
                 </div>
-                <a href="https://maps.app.goo.gl/r6vGvA7nC7zGvT6s8" target="_blank" class="map-button">VIEW MAP ↗</a>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=同齊咖吡台中南區忠明南店" target="_blank" class="map-button">VIEW MAP ↗</a>
+                </div>
             </div>
         </div>
 
         <h2 class="region-title">HUALIEN</h2>
         <div class="stores-grid" style="">
             <div class="store-card">
+                <img src="./images/hualien.jpg" alt="花蓮創始店" class="store-image">
+                <div class="store-content">
                 <h3 class="store-name serif">同齊咖吡｜花蓮創始店</h3>
                 <div class="store-info" style="">
                     <div class="store-info-item" style="">
@@ -1251,7 +1274,8 @@
                         <span>公休日：週三、週四</span>
                     </div>
                 </div>
-                <a href="https://maps.app.goo.gl/S4p64uTzQyQx4V1X9" target="_blank" class="map-button">VIEW MAP ↗</a>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=同齊咖吡花蓮創始店" target="_blank" class="map-button">VIEW MAP ↗</a>
+                </div>
             </div>
         </div>
     </section>
