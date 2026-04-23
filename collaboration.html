@@ -1801,40 +1801,35 @@
         });
 
         // 合作表單提交
-        const collabForm = document.getElementById('collabForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formSuccess = document.getElementById('formSuccess');
+        document.getElementById('collabForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止出現 ?company=... 的網址跳轉
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = '處理中...';
 
-        const COLLAB_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
-
-        collabForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(collabForm);
-            const data = {
-                timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                company: formData.get('company'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                proposal: formData.get('proposal')
+            const payload = {
+                company: this.querySelector('[name="company"]').value,
+                email: this.querySelector('[name="email"]').value,
+                phone: this.querySelector('[name="phone"]').value,
+                proposal: this.querySelector('[name="proposal"]').value
             };
 
-            submitBtn.textContent = '送出中...';
-            submitBtn.disabled = true;
-
-            try {
-                await fetch(COLLAB_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                collabForm.style.display = 'none';
-                formSuccess.style.display = 'block';
-            } catch (error) {
-                alert('送出時發生錯誤，請稍後再試或直接聯繫我們。');
-                submitBtn.textContent = '確認送出';
-                submitBtn.disabled = false;
-            }
+            fetch('https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                this.style.display = 'none';
+                const success = document.getElementById('formSuccess');
+                success.style.display = 'block';
+                success.classList.remove('d-none');
+            })
+            .catch(() => {
+                alert('發送失敗');
+                btn.disabled = false;
+                btn.innerText = '確認送出';
+            });
         });
 
         const observerOptions = {
