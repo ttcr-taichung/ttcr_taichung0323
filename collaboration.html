@@ -1801,34 +1801,55 @@
         });
 
         // 合作表單提交
-        document.getElementById('collabForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // 阻止出現 ?company=... 的網址跳轉
-            const btn = this.querySelector('button[type="submit"]');
-            btn.disabled = true;
-            btn.innerText = '處理中...';
+        // 確保在頁面載入後才執行
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('collabForm');
 
-            const payload = {
-                company: this.querySelector('[name="company"]').value,
-                email: this.querySelector('[name="email"]').value,
-                phone: this.querySelector('[name="phone"]').value,
-                proposal: this.querySelector('[name="proposal"]').value
-            };
+            // 如果找不到表單，會在控制台噴錯，方便你檢查 ID 是否打錯
+            if (!form) {
+                console.error('錯誤：找不到 ID 為 collabForm 的表單！');
+                return;
+            }
 
-            fetch('https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                this.style.display = 'none';
-                const success = document.getElementById('formSuccess');
-                success.style.display = 'block';
-                success.classList.remove('d-none');
-            })
-            .catch(() => {
-                alert('發送失敗');
-                btn.disabled = false;
-                btn.innerText = '確認送出';
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // 核心：阻止網址跳轉
+                console.log('表單已成功攔截');
+
+                const btn = this.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.innerText = '處理中...';
+
+                const payload = {
+                    company: this.querySelector('[name="company"]').value,
+                    email: this.querySelector('[name="email"]').value,
+                    phone: this.querySelector('[name="phone"]').value,
+                    proposal: this.querySelector('[name="proposal"]').value
+                };
+
+                // GAS 網址
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                })
+                .then(() => {
+                    console.log('資料已送出');
+                    this.style.display = 'none';
+                    const successMsg = document.getElementById('formSuccess');
+                    if (successMsg) {
+                        successMsg.style.display = 'block';
+                        successMsg.classList.remove('d-none');
+                    }
+                })
+                .catch(error => {
+                    console.error('發送出錯：', error);
+                    alert('送出失敗，請稍後再試');
+                    btn.disabled = false;
+                    btn.innerText = '確認送出';
+                });
             });
         });
 
