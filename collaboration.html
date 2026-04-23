@@ -1796,53 +1796,38 @@
         });
 
         // 合作表單提交
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('collabForm');
-            const successMsg = document.getElementById('success-message');
-
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    console.log('表單提交已攔截，開始處理...');
-
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    submitBtn.disabled = true;
-                    submitBtn.innerText = '處理中...';
-
-                    const payload = {
-                        company: this.querySelector('[name="company"]').value,
-                        email: this.querySelector('[name="email"]').value,
-                        phone: this.querySelector('[name="phone"]').value,
-                        proposal: this.querySelector('[name="proposal"]').value,
-                        timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
-                    };
-
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
-
-                    fetch(scriptURL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'text/plain' },
-                        body: JSON.stringify(payload)
-                    })
-                    .then(() => {
-                        console.log('發送請求完成');
-                        form.style.display = 'none';
-                        if (successMsg) {
-                            successMsg.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('發送錯誤:', error);
-                        alert('送出失敗，請稍後再試。');
-                        submitBtn.disabled = false;
-                        submitBtn.innerText = '確認送出';
-                    });
+        var form = document.getElementById('collabForm');
+        var successMsg = document.getElementById('success-message');
+        if (form) {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                var submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerText = '處理中...';
+                var payload = {
+                    company: form.querySelector('[name="company"]').value,
+                    email: form.querySelector('[name="email"]').value,
+                    phone: form.querySelector('[name="phone"]').value,
+                    proposal: form.querySelector('[name="proposal"]').value,
+                    timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+                };
+                var scriptURL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                }).then(function() {
+                    form.style.display = 'none';
+                    successMsg.style.display = 'block';
+                }).catch(function(error) {
+                    alert('送出失敗，請稍後再試。');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = '確認送出';
                 });
-            } else {
-                console.error('找不到 collabForm 元素！');
-            }
-        });
+                return false;
+            };
+        }
         const observerOptions = {
             threshold: 0.1,
             rootMargin: `0px 0px -50px 0px`
