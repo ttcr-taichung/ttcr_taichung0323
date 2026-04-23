@@ -634,6 +634,10 @@
             color: var(--brand-blue);
         }
 
+        .form-success.visible {
+            display: block !important;
+        }
+
         .form-success .success-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
@@ -1697,34 +1701,34 @@
 
     
 
-    <section class="cta-section">
+        <section class="cta-section">
         <h2 class="cta-title">合作提案 / 採購項目聯繫</h2>
-        <p class="cta-subtitle" style="outline: none;">一杯咖啡，千種連結 ♡</p>
+        <p class="cta-subtitle">一杯咖啡，千種連結 ♡</p>
+
+        <div id="success-message" style="display:none; text-align:center; padding:2rem 0;">
+            <div class="success-icon">✅</div>
+            <p>感謝您的來信！<br>我們已收到您的合作提案，將盡快與您聯繫。</p>
+        </div>
 
         <form class="collab-form" id="collabForm">
             <div class="form-group">
                 <label>公司 / 品牌名稱 <span class="required">*</span></label>
-                <input type="text" name="company" placeholder="禾松餐飲有限公司" required="">
+                <input type="text" name="company" placeholder="禾松餐飲有限公司" required>
             </div>
             <div class="form-group">
                 <label>連絡信箱 <span class="required">*</span></label>
-                <input type="email" name="email" required="">
+                <input type="email" name="email" required>
             </div>
             <div class="form-group">
                 <label>連絡電話 <span class="required">*</span></label>
-                <input type="tel" name="phone" required="">
+                <input type="tel" name="phone" required>
             </div>
             <div class="form-group">
                 <label>預計合作提案 / 採購項目 <span class="required">*</span></label>
-                <textarea name="proposal" required=""></textarea>
+                <textarea name="proposal" required></textarea>
             </div>
             <button type="submit" class="btn-submit" id="submitBtn">確認送出</button>
         </form>
-
-        <div class="form-success" id="formSuccess">
-            <div class="success-icon">✅</div>
-            <p>感謝您的來信！<br>我們已收到您的合作提案，將盡快與您聯繫。</p>
-        </div>
     </section>
 
     <footer class="footer" style="">
@@ -1801,58 +1805,53 @@
         });
 
         // 合作表單提交
-        // 確保在頁面載入後才執行
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('collabForm');
+            const successMsg = document.getElementById('success-message');
 
-            // 如果找不到表單，會在控制台噴錯，方便你檢查 ID 是否打錯
-            if (!form) {
-                console.error('錯誤：找不到 ID 為 collabForm 的表單！');
-                return;
-            }
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('表單提交已攔截，開始處理...');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); // 核心：阻止網址跳轉
-                console.log('表單已成功攔截');
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.disabled = true;
+                    submitBtn.innerText = '處理中...';
 
-                const btn = this.querySelector('button[type="submit"]');
-                btn.disabled = true;
-                btn.innerText = '處理中...';
+                    const payload = {
+                        company: this.querySelector('[name="company"]').value,
+                        email: this.querySelector('[name="email"]').value,
+                        phone: this.querySelector('[name="phone"]').value,
+                        proposal: this.querySelector('[name="proposal"]').value,
+                        timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+                    };
 
-                const payload = {
-                    company: this.querySelector('[name="company"]').value,
-                    email: this.querySelector('[name="email"]').value,
-                    phone: this.querySelector('[name="phone"]').value,
-                    proposal: this.querySelector('[name="proposal"]').value
-                };
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
 
-                // GAS 網址
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbyXG0Pl_-ebMwqILUf62_3Dz3exPhpynA5s66YU2NRqoGzVPYbRA8UfkII8wz0N6whzrg/exec';
-
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(payload)
-                })
-                .then(() => {
-                    console.log('資料已送出');
-                    this.style.display = 'none';
-                    const successMsg = document.getElementById('formSuccess');
-                    if (successMsg) {
-                        successMsg.style.display = 'block';
-                        successMsg.classList.remove('d-none');
-                    }
-                })
-                .catch(error => {
-                    console.error('發送出錯：', error);
-                    alert('送出失敗，請稍後再試');
-                    btn.disabled = false;
-                    btn.innerText = '確認送出';
+                    fetch(scriptURL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(() => {
+                        console.log('發送請求完成');
+                        form.style.display = 'none';
+                        if (successMsg) {
+                            successMsg.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('發送錯誤:', error);
+                        alert('送出失敗，請稍後再試。');
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = '確認送出';
+                    });
                 });
-            });
+            } else {
+                console.error('找不到 collabForm 元素！');
+            }
         });
-
         const observerOptions = {
             threshold: 0.1,
             rootMargin: `0px 0px -50px 0px`
