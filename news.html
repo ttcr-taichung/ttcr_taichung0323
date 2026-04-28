@@ -4,18 +4,12 @@
     <title>最新消息 - 同齊咖吡 TOGETHER COFFEE PROJECT</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;family=Noto+Serif+TC:wght@400;600;700&amp;display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         :root {
             --brand-blue: #223843;
+            --brand-blue-light: #4c6a92;
             --text-dark: #2c2c2c;
             --text-light: #666;
             --bg-cream: #faf8f5;
@@ -25,423 +19,432 @@
 
         body {
             font-family: var(--font-sans);
-            color: #2c2c2c;
-            background-color: #faf8f5;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
             cursor: none;
             overflow-x: hidden;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Custom Cursor */
+        /* ── Custom Cursor ── */
         #custom-cursor {
-            width: 22px;
-            height: 22px;
-            background: rgba(76, 106, 146, 0.15);
+            width: 22px; height: 22px;
+            background: rgba(76,106,146,0.15);
             border: 1px solid var(--brand-blue);
-            border-radius: 50% !important;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        #custom-cursor.hover {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: rgba(76, 106, 146, 0.25);
-        }
-
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(250, 248, 245, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(76, 106, 146, 0.1);
-            z-index: 1000;
-            padding: 1.5rem 5%;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: block;
-            height: 90px;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2c2c2c;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links a span {
-            color: var(--brand-blue);
-            font-size: 0.75rem;
-            font-weight: 300;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--brand-blue);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: none;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 2px;
-            background-color: var(--brand-blue);
-            transition: all 0.3s ease;
-        }
-
-        /* Social Media Links */
-        .social-links {
-            display: flex;
-            gap: 1.2rem;
-            align-items: center;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
             border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.12s ease;
+            transform: translate(-50%,-50%);
+        }
+        #custom-cursor.hover {
+            transform: translate(-50%,-50%) scale(1.6);
+            background: rgba(76,106,146,0.25);
+        }
+
+        /* ── Navbar (unchanged) ── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(250,248,245,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(76,106,146,0.1);
+            z-index: 1000; padding: 1.5rem 5%;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: block; height: 90px; text-decoration: none; }
+        .logo img { height: 100%; width: auto; object-fit: contain; }
+        .nav-links { display: flex; gap: 3rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: #2c2c2c; font-weight: 700;
+            font-size: 0.95rem; letter-spacing: 1px;
+            transition: color 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .nav-links a span { color: var(--brand-blue); font-size: 0.75rem; font-weight: 300; }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-blue); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: none; }
+        .hamburger span { width: 25px; height: 2px; background-color: var(--brand-blue); transition: all 0.3s ease; }
+        .social-links { display: flex; gap: 1.2rem; align-items: center; }
+        .social-links a {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--brand-blue); color: #fff;
+            text-decoration: none; transition: all 0.3s ease; font-size: 18px;
+        }
+        .social-links a:hover { background: #4c6a92; transform: translateY(-2px); }
+        .social-links a svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* ══════════════════════════════════
+           HERO BANNER
+        ══════════════════════════════════ */
+        .news-hero {
+            position: relative;
+            margin-top: 121px; /* navbar height */
+            height: 68vh; min-height: 420px;
             background: var(--brand-blue);
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 18px;
+            overflow: hidden;
+            display: flex; align-items: flex-end;
         }
 
-        .social-links a:hover {
-            background: #4c6a92;
-            transform: translateY(-2px);
+        /* Grain texture overlay */
+        .news-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            opacity: 0.35; z-index: 1; pointer-events: none;
         }
 
-        .social-links a svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        /* Decorative large serif letter */
+        .hero-bg-letter {
+            position: absolute; right: -2rem; top: 50%; transform: translateY(-52%);
+            font-family: var(--font-serif); font-weight: 700;
+            font-size: clamp(14rem, 28vw, 26rem);
+            color: rgba(255,255,255,0.04);
+            line-height: 1; user-select: none; pointer-events: none; z-index: 1;
+            letter-spacing: -0.05em;
         }
 
-        /* Page Header */
-        .section-header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10rem 2rem 3rem;
-            text-align: center;
+        /* Thin horizontal rule */
+        .hero-rule {
+            position: absolute; top: 50%; left: 5%; right: 5%;
+            height: 1px; background: rgba(255,255,255,0.1); z-index: 1;
         }
 
-        .serif-italic {
+        .news-hero-inner {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 1200px;
+            margin: 0 auto; padding: 0 2rem 4rem;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.78rem; font-weight: 500;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .hero-eyebrow::before {
+            content: ''; display: block;
+            width: 32px; height: 1px; background: rgba(255,255,255,0.35);
+        }
+
+        .hero-title {
             font-family: var(--font-serif);
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            font-weight: 700; color: #fff;
+            line-height: 1.15; margin-bottom: 1.5rem;
+        }
+        .hero-title em {
             font-style: italic;
-            font-size: 1rem;
-            color: var(--brand-blue);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.65em;
+            display: block; margin-top: 0.3rem;
         }
 
-        .serif-bold {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
+        .hero-meta {
+            display: flex; align-items: center; gap: 2rem;
+            font-size: 0.82rem; color: rgba(255,255,255,0.45);
+            letter-spacing: 0.1em;
+        }
+        .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+        .hero-meta span::before {
+            content: ''; display: block;
+            width: 4px; height: 4px; border-radius: 50%;
+            background: rgba(255,255,255,0.4);
         }
 
-        /* News Section */
-        .news-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 2rem 5rem;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* ══════════════════════════════════
+           SECTION INTRO
+        ══════════════════════════════════ */
+        .section-intro {
+            max-width: 1200px; margin: 0 auto;
+            padding: 5rem 2rem 2rem;
+            display: flex; justify-content: space-between; align-items: flex-end;
             gap: 2rem;
         }
-
-        .news-card {
-            background-color: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .section-intro-left {}
+        .section-label {
+            font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
+            color: var(--brand-blue); font-weight: 600; margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700; color: var(--text-dark); line-height: 1.2;
+        }
+        .section-intro-right {
+            font-size: 0.9rem; color: var(--text-light);
+            max-width: 320px; line-height: 1.8; text-align: right;
+            padding-bottom: 0.2rem;
         }
 
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        /* ══════════════════════════════════
+           DIVIDER
+        ══════════════════════════════════ */
+        .section-divider {
+            max-width: 1200px; margin: 0 auto 3.5rem;
+            padding: 0 2rem;
+        }
+        .section-divider hr {
+            border: none; border-top: 1px solid rgba(34,56,67,0.12);
         }
 
-        .news-card:target {
-            animation: highlight 2s ease;
-            border: 2px solid var(--brand-blue);
+        /* ══════════════════════════════════
+           FEATURED CARD (top large card)
+        ══════════════════════════════════ */
+        .news-section {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 2rem 6rem;
         }
 
-        @keyframes highlight {
-            0% {
-                background-color: rgba(94, 129, 172, 0.2);
-            }
-            100% {
-                background-color: var(--white);
-            }
+        .featured-card {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 0; border-radius: 16px; overflow: hidden;
+            background: var(--brand-blue);
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(34,56,67,0.18);
+            opacity: 0; transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .featured-card.visible { opacity: 1; transform: translateY(0); }
+
+        .featured-visual {
+            position: relative; min-height: 360px;
+            background: linear-gradient(135deg, #1a2d36 0%, #2e4f61 60%, #3a6070 100%);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .featured-visual::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent, transparent 18px,
+                rgba(255,255,255,0.025) 18px, rgba(255,255,255,0.025) 19px
+            );
+        }
+        .featured-visual-icon {
+            font-size: 6rem; z-index: 1; position: relative;
+            filter: drop-shadow(0 4px 24px rgba(0,0,0,0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .featured-visual-tag {
+            position: absolute; top: 1.5rem; left: 1.5rem;
+            background: rgba(255,255,255,0.12); backdrop-filter: blur(6px);
+            color: rgba(255,255,255,0.85); font-size: 0.72rem;
+            letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+            padding: 0.35rem 0.9rem; border-radius: 20px; z-index: 2;
         }
 
-        .news-date {
-            font-size: 0.85rem;
-            color: var(--brand-blue);
-            font-weight: 500;
-            letter-spacing: 1px;
+        .featured-body {
+            padding: 3rem 2.8rem;
+            display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
+        }
+        .featured-date {
+            font-size: 0.78rem; letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.45); font-weight: 500;
+        }
+        .featured-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+            font-weight: 700; color: #fff; line-height: 1.45;
+        }
+        .featured-desc {
+            font-size: 0.93rem; color: rgba(255,255,255,0.65);
+            line-height: 1.85;
+        }
+        .featured-cta {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            margin-top: 0.5rem; padding: 0.75rem 1.6rem;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px; color: #fff; font-size: 0.85rem;
+            font-weight: 600; letter-spacing: 0.1em; text-decoration: none;
+            transition: all 0.3s ease; align-self: flex-start;
+        }
+        .featured-cta:hover {
+            background: rgba(255,255,255,0.2);
+            gap: 0.9rem;
+        }
+        .featured-cta .arrow { transition: transform 0.3s ease; }
+        .featured-cta:hover .arrow { transform: translateX(4px); }
+
+        /* ══════════════════════════════════
+           STORY GRID
+        ══════════════════════════════════ */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
-        .news-title {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-desc {
-            font-size: 0.95rem;
-            color: var(--text-gray);
-            line-height: 1.7;
-            flex-grow: 1;
-        }
-
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--brand-blue);
-            font-weight: 500;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: color 0.3s ease, gap 0.3s ease;
-            margin-top: 0.5rem;
-        }
-
-        .read-more:hover {
-            color: var(--brand-blue-dark);
-            gap: 0.8rem;
-        }
-
-                /* Footer */
-        .footer {
-            background: #223843;
-            color: #fff;
-            padding: 3rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-follow-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.15em;
-            margin-bottom: 1.5rem;
-            font-family: var(--font-sans);
-        }
-
-        .footer .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+        .story-card {
             background: #fff;
-            color: #2c3e50;
-            text-decoration: none;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 2px 12px rgba(34,56,67,0.07);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.35s ease;
+        }
+        .story-card.visible { opacity: 1; transform: translateY(0); }
+        .story-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(34,56,67,0.13);
+        }
+
+        .card-accent {
+            height: 4px;
+            background: var(--brand-blue);
+        }
+        .card-accent.muted { background: rgba(34,56,67,0.2); }
+
+        .card-visual {
+            padding: 2rem 1.8rem 0;
+            font-size: 2.6rem; line-height: 1;
+        }
+
+        .card-body {
+            padding: 1.2rem 1.8rem 1.8rem;
+            display: flex; flex-direction: column; gap: 0.75rem; flex: 1;
+        }
+
+        .card-date {
+            font-size: 0.75rem; letter-spacing: 0.15em;
+            color: var(--brand-blue); font-weight: 600;
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.05rem; font-weight: 700;
+            color: var(--text-dark); line-height: 1.55;
+        }
+
+        .card-desc {
+            font-size: 0.88rem; color: var(--text-light);
+            line-height: 1.8; flex: 1;
+        }
+
+        .card-link {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: var(--brand-blue); font-size: 0.82rem; font-weight: 600;
+            letter-spacing: 0.08em; text-decoration: none;
+            margin-top: 0.25rem;
+            transition: gap 0.25s ease, color 0.25s ease;
+        }
+        .card-link:hover { gap: 0.7rem; color: var(--brand-blue-light); }
+
+        /* ══════════════════════════════════
+           TIMELINE STRIP (bottom row)
+        ══════════════════════════════════ */
+        .timeline-strip {
+            margin-top: 3rem;
+            padding: 2.5rem 2rem;
+            background: var(--brand-blue);
+            border-radius: 14px;
+            display: flex; gap: 0; overflow: hidden;
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+        }
+        .timeline-strip.visible { opacity: 1; transform: translateY(0); }
+
+        .timeline-item {
+            flex: 1; padding: 0 2rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; gap: 0.6rem;
+        }
+        .timeline-item:last-child { border-right: none; }
+
+        .tl-num {
+            font-family: "Montserrat", sans-serif;
+            font-size: 2rem; font-weight: 900;
+            color: rgba(255,255,255,0.12); line-height: 1;
+        }
+        .tl-date {
+            font-size: 0.72rem; letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.4); font-weight: 500;
+        }
+        .tl-title {
+            font-family: var(--font-serif);
+            font-size: 0.95rem; font-weight: 700;
+            color: rgba(255,255,255,0.85); line-height: 1.5;
+        }
+        .tl-link {
+            font-size: 0.78rem; color: rgba(255,255,255,0.4);
+            text-decoration: none; letter-spacing: 0.1em;
+            transition: color 0.25s ease; margin-top: auto;
+        }
+        .tl-link:hover { color: rgba(255,255,255,0.8); }
+
+        /* ══════════════════════════════════
+           FOOTER (unchanged)
+        ══════════════════════════════════ */
+        .footer {
+            background: #223843; color: #fff;
+            padding: 3rem 2rem 2rem; margin-top: 0;
+        }
+        .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .footer-follow-title {
+            text-align: center; font-size: 1.2rem; font-weight: 600;
+            color: rgba(255,255,255,0.9); letter-spacing: 0.15em;
+            margin-bottom: 1.5rem; font-family: var(--font-sans);
+        }
+        .footer .social-links {
+            display: flex; justify-content: center; gap: 1.2rem; margin-bottom: 2rem;
+        }
+        .footer .social-links a {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: #fff; color: #2c3e50; text-decoration: none;
             transition: all 0.3s ease;
         }
+        .footer .social-links a:hover { background: #e0e0e0; transform: translateY(-2px); }
+        .footer .social-links a svg { width: 18px; height: 18px; fill: currentColor; }
+        .footer-text { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 0; }
+        .kuse-branding {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-top: 1.5rem; padding: 0.5rem 1rem;
+            background-color: rgba(255,255,255,0.05); border-radius: 8px;
+            transition: all 0.3s ease; cursor: none;
+            text-decoration: none; color: #fff; font-size: 0.85rem;
+        }
+        .kuse-branding:hover { background-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .kuse-branding svg { height: 1.2em; width: auto; }
 
-        .footer .social-links a:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
+        /* ══════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════ */
+        @media (max-width: 900px) {
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-visual { min-height: 220px; }
+            .story-grid { grid-template-columns: repeat(2, 1fr); }
+            .section-intro { flex-direction: column; align-items: flex-start; }
+            .section-intro-right { text-align: left; max-width: 100%; }
+            .timeline-strip { flex-direction: column; gap: 1.5rem; }
+            .timeline-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 0 1.5rem; }
+            .timeline-item:last-child { border-bottom: none; }
         }
 
-        .footer .social-links a svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .footer-text {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 0;
-        }
-
-        
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background-color: var(--white);
-                flex-direction: column;
-                justify-content: flex-start;
-                padding-top: 2rem;
-                gap: 1.5rem;
-                transition: left 0.3s ease;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                position: fixed; top: 70px; left: -100%; width: 100%;
+                height: calc(100vh - 70px); background-color: #faf8f5;
+                flex-direction: column; justify-content: flex-start;
+                padding-top: 2rem; gap: 1.5rem; transition: left 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -7px);
-            }
-
-            .section-header {
-                padding: 6rem 1.5rem 2rem;
-            }
-
-            .serif-bold {
-                font-size: 2rem;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .news-section {
-                padding: 1.5rem 1.5rem 4rem;
-            }
-
-            .news-card {
-                padding: 1.5rem;
-            }
-
-            .news-title {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.25rem;
-            }
-
-            .serif-bold {
-                font-size: 1.75rem;
-            }
-
-            .news-card {
-                padding: 1.25rem;
-            }
-
-            .news-title {
-                font-size: 1.1rem;
-            }
-
-            .news-desc {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Kuse Branding */
-        .kuse-branding {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding: 0.5rem 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: none;
-            text-decoration: none;
-            color: var(--white);
-            font-size: 0.85rem;
-        }
-
-        .kuse-branding:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .kuse-branding svg {
-            height: 1.2em;
-            width: auto;
+            .nav-links.active { left: 0; }
+            .hamburger { display: flex; }
+            .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+            .news-hero { height: 52vh; }
+            .story-grid { grid-template-columns: 1fr; }
+            .news-section { padding: 0 1.5rem 4rem; }
+            .section-intro { padding: 3.5rem 1.5rem 1.5rem; }
+            .section-divider { padding: 0 1.5rem; }
         }
     </style>
 <style id="kgp-selected-style">
@@ -497,137 +500,429 @@
     position: relative;
     outline: none;
   }
+</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
+</style><style id="kgp-selected-style">
+  [data-kgp-selected]::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 4px;
+    border-radius: 4px;
+    outline: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 10px rgba(255, 107, 53, 0.4) !important;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  [data-kgp-selected] {
+    position: relative;
+    outline: none;
+    cursor: default;
+  }
+
+  img[data-kgp-selected],
+  img[data-kgp-hover-selected],
+  [data-kgp-hover-selected],
+  [item-kgp-click-selected],
+  [item-kgp-selected] {
+    border: 3px solid #FF6B35 !important;
+    box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.5) !important;
+    border-radius: 4px;
+  }
+
+  [data-kgp-hover-selected]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 4px;
+    outline: 2px solid #FFA366 !important;
+    box-shadow: 0 0 0 1px rgba(255, 163, 102, 0.3), 0 0 8px rgba(255, 163, 102, 0.4) !important;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  [data-kgp-hover-selected] {
+    position: relative;
+    outline: none;
+  }
 </style></head>
-<body>
+<body style="">
     <div id="custom-cursor"></div>
 
+    <!-- ── Navbar (unchanged) ── -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo"><img src="./logo.png" alt="同齊咖吡"></a>
             <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
-                        <div class="nav-links" id="navLinks">
+            <div class="nav-links" id="navLinks">
                 <a href="menu.html">菜單</a>
                 <a href="franchise.html">加盟計畫</a>
                 <a href="space-rental.html">空間租賃</a>
                 <a href="location.html">店面位置</a>
                 <a href="story.html">品牌故事</a>
                 <a href="gallery.html">特色餐食</a>
-            </div></div>
+            </div>
+        </div>
     </nav>
 
-    <section class="section-header">
-        <div class="serif-italic"># WHAT'S NEW</div>
-        <h1 class="serif-bold">最新消息 &amp; 每月活動</h1>
-    </section>
-
-    <section class="news-section">
-        <div class="news-grid">
-            <article class="news-card" id="news-1" style="">
-                <div class="news-date" style="">2026.02.01</div>
-                <h2 class="news-title">👑 作伙同行·即刻啟程｜尊爵會員限時招募</h2>
-                <p class="news-desc">除了 2330 台積電，北屯還有更溫暖的績優股。定期分紅共享品牌成長、入會金 100% 抵消費、北屯店生意越好獎金越多。享免排隊特權、新品黑卡之夜、首席優先預訂。與其當個客人，不如當個「生活股東」。限時招募，名額有限！</p>
-                <a href="#news-1" class="read-more">DETAILS ↗</a>
-            </article>
-
-            <article class="news-card" id="news-2" style="">
-                <div class="news-date" style="">2025.12.25</div>
-                <h2 class="news-title">🎄 聖誕包場專案｜在同齊咖啡感受溫暖</h2>
-                <p class="news-desc">和親友、三五好友，在笑聲與香氣中度過美好時光。無論是聖誕交換禮物、溫馨聚餐，都能在這裡找到屬於你的節日氣氛。可容納 5–25 人小包場，附投影設備、氣氛滿分。</p>
-                <a href="space-rental.html" class="read-more" style="">DETAILS ↗</a>
-            </article>
-
-            <article class="news-card" id="news-3" style="">
-                <div class="news-date" style="">2025.01.05</div>
-                <h2 class="news-title">🍞 剝皮辣椒燻雞佛卡夏｜獨享時光，也要好好對自己辣一下</h2>
-                <p class="news-desc">義式麵包＋中式靈魂辣椒，碰撞新火花。坐下來，喝杯咖啡，讓剝皮辣椒的辣，幫你整理今天的疲憊。在同齊，我們不止賣咖啡，也留一口溫熱給你繼續生活的熱情。</p>
-                <a href="menu.html" class="read-more">DETAILS ↗</a>
-            </article>
-
-            <article class="news-card" id="news-4">
-                <div class="news-date" style="">2026.02.28</div>
-                <h2 class="news-title">VIP 儲值專案｜企業與常客專屬優惠</h2>
-                <p class="news-desc">單次儲值滿 $10,000 元，即成為 VIP 會員。加碼贈送 $1,500 點數，場地租借再享 9 折優惠。儲值金無使用期限，全台分店皆可通用。</p>
-                <a href="space-rental.html" class="read-more">DETAILS ↗</a>
-            </article>
-
-            <article class="news-card" id="news-5">
-                <div class="news-date" style="">2025.07.01</div>
-                <h2 class="news-title">同齊福利社｜寄杯卡優惠活動</h2>
-                <p class="news-desc">里長美式：買10送3杯特價999元(現省300)、買15送5杯特價1499元(現省500)、買20送7杯特價1999元。里長拿鐵：買10送2杯特價1299元(現省260)、買15送4杯特價1949元(現省520)、買20送6杯特價2599元(現省780)。一杯咖啡，千種連結。</p>
-                <a href="#" class="read-more">DETAILS ↗</a>
-            </article>
-
-            <article class="news-card">
-                <div class="news-date" style="outline: none;">2023.08.20</div>
-                <h2 class="news-title">【會員專屬】集點卡升級計畫</h2>
-                <p class="news-desc">全新數位集點系統上線，消費滿百即可累積點數，兌換更多專屬優惠與限定商品。會員享有優先預約權及生日專屬優惠。</p>
-                <a href="#" class="read-more">DETAILS ↗</a>
-            </article>
+    <!-- ══════════════════════════════════
+         HERO BANNER
+    ══════════════════════════════════ -->
+    <section class="news-hero">
+        <div class="hero-rule"></div>
+        <div class="hero-bg-letter">N</div>
+        <div class="news-hero-inner">
+            <div class="hero-eyebrow">What's New &nbsp;·&nbsp; 最新消息</div>
+            <h1 class="hero-title">
+                每一則消息<br>都是一個故事的開始
+                <em>News &amp; Monthly Events</em>
+            </h1>
+            <div class="hero-meta" style="">
+                <span style="">同齊咖吡 TTCR</span>
+                <span style="">台中店鋪活動</span>
+                <span style="">&nbsp;— 持續更新中</span>
+            </div>
         </div>
     </section>
 
-    
+    <!-- ══════════════════════════════════
+         SECTION INTRO
+    ══════════════════════════════════ -->
+    <div class="section-intro" style="">
+        <div class="section-intro-left">
+            <div class="section-label">Latest Stories</div>
+            <h2 class="section-title">近期活動<br>與品牌動態</h2>
+        </div>
+        <p class="section-intro-right" style="">
+            從會員招募到季節限定，<br>每一件事我們都想讓你第一個知道。<br>
+            這裡記錄的，不只是消息，<br>而是同齊與你共同走過的每一個時刻。
+        </p>
+    </div>
 
-    <script>
-        // Custom Cursor
-        const cursor = document.getElementById(`custom-cursor`);
-        const hoverElements = document.querySelectorAll(`a, button, .news-card`);
+    <div class="section-divider"><hr></div>
 
-        document.addEventListener(`mousemove`, (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-            cursor.classList.add(`active`);
-        });
+    <!-- ══════════════════════════════════
+         NEWS CONTENT
+    ══════════════════════════════════ -->
+    <section class="news-section" style="">
 
-        document.addEventListener(`mouseleave`, () => {
-            cursor.classList.remove(`active`);
-        });
+        <!-- Featured Card -->
+        <article class="featured-card visible" id="news-1" style="">
+            <div class="featured-visual" style="background-repeat: no-repeat; background-image: url(&quot;https://api.kuse.ai/api/file/public-assets/9693921/access/eb7fe983a5f9921cc107d3ca09f8e0e527fdf7a0f95bfe65d1f41742afdc64aa&quot;); background-size: cover; outline: none; background-position: 50% 100%;">
+                <div class="featured-visual-tag">精選活動</div>
+                
+            </div>
+            <div class="featured-body">
+                <div class="featured-date">2026 · 02 · 01</div>
+                <h2 class="featured-title">作伙同行·即刻啟程<br>尊爵會員限時招募</h2>
+                <p class="featured-desc">
+                    除了 2330 台積電，北屯還有更溫暖的績優股。定期分紅共享品牌成長、入會金 100% 抵消費、北屯店生意越好獎金越多。享免排隊特權、新品黑卡之夜、首席優先預訂。與其當個客人，不如當個「生活股東」。限時招募，名額有限！
+                </p>
+                <a href="#news-1" class="featured-cta">
+                    了解詳情 <span class="arrow">↗</span>
+                </a>
+            </div>
+        </article>
 
-        hoverElements.forEach(element => {
-            element.addEventListener(`mouseenter`, () => {
-                cursor.classList.add(`hover`);
-            });
-            element.addEventListener(`mouseleave`, () => {
-                cursor.classList.remove(`hover`);
-            });
-        });
+        <!-- Story Grid -->
+        <div class="story-grid">
 
-        // Hamburger Menu
-        const hamburger = document.getElementById(`hamburger`);
-        const navLinks = document.getElementById(`navLinks`);
+            <article class="story-card visible" id="news-2">
+                <div class="card-accent"></div>
+                
+                <div class="card-body" style="">
+                    <div class="card-date">2025 · 12 · 25<br><br></div>
+                    <h2 class="card-title">聖誕包場專案｜在同齊咖啡感受溫暖</h2>
+                    <p class="card-desc">和親友、三五好友，在笑聲與香氣中度過美好時光。可容納 5–25 人小包場，附投影設備、氣氛滿分。</p>
+                    <a href="space-rental.html" class="card-link">DETAILS ↗</a>
+                </div>
+            </article>
 
-        hamburger.addEventListener(`click`, () => {
-            hamburger.classList.toggle(`active`);
-            navLinks.classList.toggle(`active`);
-        });
+            <article class="story-card visible" id="news-3">
+                <div class="card-accent"></div>
+                
+                <div class="card-body" style="">
+                    <div class="card-date">2025 · 01 · 05<br><br></div>
+                    <h2 class="card-title">剝皮辣椒燻雞佛卡夏｜獨享時光，也要好好對自己辣一下</h2>
+                    <p class="card-desc" style="">義式麵包＋中式靈魂辣椒，碰撞新火花。坐下來，喝杯咖啡，讓剝皮辣椒的辣，幫你整理今天的疲憊。</p>
+                    <a href="menu.html" class="card-link">DETAILS ↗</a>
+                </div>
+            </article>
 
-        // Close menu when clicking on a link
-        const navItems = document.querySelectorAll(`.nav-links a`);
-        navItems.forEach(item => {
-            item.addEventListener(`click`, () => {
-                hamburger.classList.remove(`active`);
-                navLinks.classList.remove(`active`);
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener(`click`, (e) => {
-            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-                hamburger.classList.remove(`active`);
-                navLinks.classList.remove(`active`);
-            }
-        });
-    </script>
-
-    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
-
-    
+            <article class="story-card visible" id="news-4">
+                <div class="card-accent muted"></div>
+                
+                <div class="card-body" style="outline: none;">
+                    <div class="card-date" style="">2025 · 05 · 12<br><br></div>
+                    <h2 class="card-title" style="">里民愛儲值｜瘋狂加碼送<br></h2>
+                    <p class="card-desc" style=""></p><p style="outline: none;"><span style="color: rgb(102, 102, 102); font-size: 14.08px; outline: none;"></span></p><div style=""><span style="font-size: 14.08px;">$2800 大滿足 ｜ 頂級全餐享受，剝皮辣椒系列全面免加價！</span></div><div style=""><span style="font-size: 14.08px;">$1800 人氣首選 ｜ 聚會最推！豪華炸物拼盤搭配雙倍飲品。</span></div><div><span style="font-size: 14.08px;">$800 小小幸福 ｜ 個人限定療癒，給自己的小額午茶首選。</span></div><p></p>
 
 
+
+
+
+
+
+
+
+
+<p><br></p>
+
+<p><a href="space-rental.html" class="card-link" style="display: inline !important;">DETAILS ↗</a></p>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Timeline Strip -->
+        <div class="timeline-strip visible">
+            <div class="timeline-item">
+                <div class="tl-num">01</div>
+                <div class="tl-date">2025 · 07 · 01</div>
+                <div class="tl-title">同齊福利社｜寄杯卡優惠活動</div>
+                <a href="#" class="tl-link">VIEW →</a>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-num">02</div>
+                <div class="tl-date">2023 · 08 · 20</div>
+                <div class="tl-title">【會員專屬】集點卡升級計畫</div>
+                <a href="#" class="tl-link">VIEW →</a>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-num">03</div>
+                <div class="tl-date">持續更新中</div>
+                <div class="tl-title">更多活動即將登場，敬請期待</div>
+                <a href="https://www.instagram.com/ttcr_taichung/" class="tl-link">FOLLOW IG →</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════
+         FOOTER (unchanged)
+    ══════════════════════════════════ -->
     <footer class="footer">
         <div class="footer-content">
             <h3 class="footer-follow-title">FOLLOW US</h3>
@@ -646,5 +941,55 @@
         </div>
     </footer>
 
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .story-card, .featured-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Scroll-reveal animation
+        const revealEls = document.querySelectorAll('.featured-card, .story-card, .timeline-strip');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    // stagger delay for story cards
+                    const delay = entry.target.classList.contains('story-card')
+                        ? Array.from(document.querySelectorAll('.story-card')).indexOf(entry.target) * 80
+                        : 0;
+                    setTimeout(() => entry.target.classList.add('visible'), delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => observer.observe(el));
+    </script>
+
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
 
 </body></html>
