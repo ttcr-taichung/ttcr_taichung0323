@@ -253,7 +253,7 @@ code{font-family:'DM Mono',monospace;font-size:12px;background:var(--bg);border:
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://accounts.google.com/gsi/client" async></script>
+<script src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
 
@@ -303,6 +303,7 @@ code{font-family:'DM Mono',monospace;font-size:12px;background:var(--bg);border:
       </div>
     </div>
     <div class="tb-r">
+      <div id="login_area"><div id="google_login_btn"></div></div>
       <span class="demo-pill" id="dpill">⚡ 示範模式</span>
       <button class="btn" onclick="refresh()">↻ 刷新</button>
       <button class="btn pri" onclick="exportCSV()">↓ 匯出</button>
@@ -732,7 +733,7 @@ gtag('event', 'page_view', {
           </div>
           <div>
             <div class="ml" style="margin-bottom:4px">OAuth Client ID</div>
-            <input id="cfg-clientid" placeholder="xxxx.apps.googleusercontent.com"
+            <input id="cfg-clientid" value="217180060065-hvsp719dn9re739npi1k07hm5v67ieo0.apps.googleusercontent.com"
               style="width:100%;padding:8px 10px;border:1px solid var(--b);border-radius:var(--r);background:var(--bg);font-family:'DM Mono',monospace;font-size:12px;color:var(--tp)">
             <div style="font-size:11px;color:var(--tm);margin-top:4px">
               Google Cloud Console → APIs & Services → OAuth 2.0 用戶端 ID
@@ -1399,9 +1400,55 @@ function exportCSV(){
 const ks=document.createElement('style'); ks.textContent='@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}'; document.head.appendChild(ks);
 
 // ═══════════════════════
+// GOOGLE 登入 / 登出
+// ═══════════════════════
+function handleCredentialResponse(response) {
+  localStorage.setItem("ttcr_user_token", response.credential);
+  window.location.reload();
+}
+
+function handleLogout() {
+  localStorage.removeItem("ttcr_user_token");
+  window.location.reload();
+}
+
+// ═══════════════════════
 // INIT
 // ═══════════════════════
-window.addEventListener('DOMContentLoaded',()=>{ loadDemo(); });
+window.addEventListener('DOMContentLoaded', () => {
+  const savedToken = localStorage.getItem("ttcr_user_token");
+
+  if (savedToken) {
+    // 已登入：顯示登出按鈕，直接載入數據
+    document.getElementById("login_area").innerHTML =
+      `<button class="btn" onclick="handleLogout()">登出管理員</button>`;
+    loadDemo();
+  } else {
+    // 未登入：遮蔽內容，等 GSI 載入後渲染按鈕
+    document.getElementById("cnt").style.opacity = "0.3";
+    document.getElementById("cnt").style.pointerEvents = "none";
+
+    function renderGoogleBtn() {
+      google.accounts.id.initialize({
+        client_id: "217180060065-hvsp719dn9re739npi1k07hm5v67ieo0.apps.googleusercontent.com",
+        callback: handleCredentialResponse,
+        auto_select: true
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("google_login_btn"),
+        { theme: "outline", size: "large", text: "signin_with", locale: "zh-TW", width: 220 }
+      );
+      google.accounts.id.prompt();
+    }
+
+    // GSI 已載入就直接執行，否則等它載入
+    if (typeof google !== "undefined" && google.accounts) {
+      renderGoogleBtn();
+    } else {
+      window.onGoogleLibraryLoad = renderGoogleBtn;
+    }
+  }
+});
 </script>
 </body>
 </html>
