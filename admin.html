@@ -253,6 +253,7 @@ code{font-family:'DM Mono',monospace;font-size:12px;background:var(--bg);border:
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
 
@@ -724,22 +725,24 @@ gtag('event', 'page_view', {
 
       <div class="cc" style="margin-bottom:14px">
         <div class="ct" style="margin-bottom:14px">🔗 連接設定</div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-bottom:5px;font-weight:500">GA4 資源 ID（Property ID）</div>
-          <input id="cfg-prop" type="text" placeholder="123456789" style="width:100%;padding:8px 11px;background:var(--bg);border:1px solid var(--b);border-radius:var(--r);color:var(--tp);font-family:'DM Mono',monospace;font-size:13px;outline:none">
-        </div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-bottom:5px;font-weight:500">GA4 評估 ID</div>
-          <input id="cfg-mid" type="text" placeholder="G-XXXXXXXXXX" value="G-J1RH1Z5918" style="width:100%;padding:8px 11px;background:var(--bg);border:1px solid var(--b);border-radius:var(--r);color:var(--tp);font-family:'DM Mono',monospace;font-size:13px;outline:none">
-        </div>
-        <div style="margin-bottom:16px">
-          <div style="font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-bottom:5px;font-weight:500">服務帳戶 JSON 金鑰</div>
-          <textarea id="cfg-key" rows="5" placeholder='{"type":"service_account","project_id":"..."}' style="width:100%;padding:8px 11px;background:var(--bg);border:1px solid var(--b);border-radius:var(--r);color:var(--tp);font-family:'DM Mono',monospace;font-size:11.5px;outline:none;resize:vertical"></textarea>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="btn pri" onclick="connectGA4()">連接 GA4</button>
-          <button class="btn" onclick="loadDemo()">使用示範數據</button>
-          <span style="font-size:12px;color:var(--tm)" id="cfg-msg"></span>
+        <div style="max-width:480px;display:flex;flex-direction:column;gap:12px">
+          <div>
+            <div class="ml" style="margin-bottom:4px">GA4 資源 ID</div>
+            <input style="width:100%;padding:8px 10px;border:1px solid var(--b);border-radius:var(--r);background:var(--bg);font-family:'DM Mono',monospace;font-size:13px;color:var(--tp)" value="534430481" disabled>
+          </div>
+          <div>
+            <div class="ml" style="margin-bottom:4px">OAuth Client ID</div>
+            <input id="cfg-clientid" placeholder="xxxx.apps.googleusercontent.com"
+              style="width:100%;padding:8px 10px;border:1px solid var(--b);border-radius:var(--r);background:var(--bg);font-family:'DM Mono',monospace;font-size:12px;color:var(--tp)">
+            <div style="font-size:11px;color:var(--tm);margin-top:4px">
+              Google Cloud Console → APIs & Services → OAuth 2.0 用戶端 ID
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn pri" onclick="initOAuth()">🔐 Google 帳號登入授權</button>
+            <button class="btn" onclick="loadDemo()">示範模式</button>
+          </div>
+          <div id="cfg-msg" style="font-size:12px;color:var(--ok);min-height:18px"></div>
         </div>
       </div>
 
@@ -1320,48 +1323,40 @@ function loadDemo(){
   toast('已載入示範數據');
 }
 
-async function connectGA4(){
-  const prop=document.getElementById('cfg-prop').value.trim();
-  const key=document.getElementById('cfg-key').value.trim();
-  if(!prop){ document.getElementById('cfg-msg').textContent='請填寫資源 ID'; return; }
-  if(!key){ toast('請輸入服務帳戶 JSON，或使用示範數據'); return; }
-  document.getElementById('cfg-msg').textContent='連接中…';
-  showOv();
-  try {
-    const k=JSON.parse(key);
-    const tkn=await getToken(k);
-    const d=await fetchGA4(prop,tkn);
-    allData=d;
-    document.getElementById('sdot').className='dot ok';
-    document.getElementById('stxt').textContent='已連接 GA4';
-    document.getElementById('ssub').textContent='ID: '+prop;
-    document.getElementById('dpill').style.display='none';
-    document.getElementById('cfg-msg').textContent='連接成功 ✓';
-    sv('overview');
-    renderOverview(allData);
-    renderHeatmap(allData);
-    renderConversion(allData);
-  } catch(e){
-    document.getElementById('cfg-msg').textContent='失敗：'+e.message.slice(0,50);
-    toast('連接失敗：'+e.message.slice(0,60));
-  } finally{ hideOv(); }
-}
+// ═══════════════════════
+// OAUTH 登入 & 連接 GA4
+// ═══════════════════════
+const GA4_PROPERTY = '534430481';
+let tokenClient = null;
 
-async function getToken(k){
-  const now=Math.floor(Date.now()/1000);
-  const hdr=btoa(JSON.stringify({alg:'RS256',typ:'JWT'})).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
-  const clm=btoa(JSON.stringify({iss:k.client_email,scope:'https://www.googleapis.com/auth/analytics.readonly',aud:'https://oauth2.googleapis.com/token',exp:now+3600,iat:now})).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
-  const unsigned=hdr+'.'+clm;
-  const pkcs8=k.private_key.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\n/g,'');
-  const bk=Uint8Array.from(atob(pkcs8),c=>c.charCodeAt(0));
-  const ck=await crypto.subtle.importKey('pkcs8',bk,{name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'},false,['sign']);
-  const sig=await crypto.subtle.sign('RSASSA-PKCS1-v1_5',ck,new TextEncoder().encode(unsigned));
-  const encSig=btoa(String.fromCharCode(...new Uint8Array(sig))).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
-  const jwt=unsigned+'.'+encSig;
-  const res=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:`grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${jwt}`});
-  const j=await res.json();
-  if(!j.access_token) throw new Error(j.error_description||'Token 失敗');
-  return j.access_token;
+function initOAuth() {
+  const clientId = document.getElementById('cfg-clientid').value.trim();
+  if (!clientId) { document.getElementById('cfg-msg').textContent = '請填寫 OAuth Client ID'; return; }
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: clientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: async (resp) => {
+      if (resp.error) { document.getElementById('cfg-msg').textContent = '授權失敗:' + resp.error; return; }
+      showOv();
+      try {
+        const d = await fetchGA4(GA4_PROPERTY, resp.access_token);
+        allData = d;
+        document.getElementById('sdot').className = 'dot ok';
+        document.getElementById('stxt').textContent = '已連接 GA4';
+        document.getElementById('ssub').textContent = 'ID: ' + GA4_PROPERTY;
+        document.getElementById('dpill').style.display = 'none';
+        document.getElementById('cfg-msg').textContent = '連接成功 ✓';
+        sv('overview');
+        renderOverview(allData);
+        renderHeatmap(allData);
+        renderConversion(allData);
+      } catch(e) {
+        document.getElementById('cfg-msg').textContent = '失敗:' + e.message.slice(0, 60);
+        toast('連接失敗:' + e.message.slice(0, 60));
+      } finally { hideOv(); }
+    },
+  });
+  tokenClient.requestAccessToken();
 }
 
 async function fetchGA4(prop,tkn){
