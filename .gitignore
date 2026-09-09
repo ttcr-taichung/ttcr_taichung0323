@@ -1,0 +1,5 @@
+.env
+meta_ads_automation/state/*.json
+meta_ads_automation/reports/*.md
+__pycache__/
+*.pyc
